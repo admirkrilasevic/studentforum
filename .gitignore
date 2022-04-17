@@ -24,3 +24,5 @@ yarn-debug.log*
 yarn-error.log*
 
 **/vendor/
+
+.php-cs-fixer.cache
