@@ -1,0 +1,12 @@
+{
+    "name": "yoga/api",
+    "authors": [
+        {
+            "name": "admirkrilasevic",
+            "email": "admirkrilasevic@gmail.com"
+        }
+    ],
+    "require": {
+        "mikecao/flight": "^2.0"
+    }
+}
