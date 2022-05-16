@@ -1,6 +1,6 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -13,27 +13,17 @@ function App() {
         <Router>
             <div className="App">
                 <Header />
-                <Switch>
+                <Routes>
                     <Route
                         exact
                         path="/"
-                        render={() => {
-                            return <Redirect to="/home" />
-                        }}
+                        element={<Navigate to="/home" replace />}
                     />
-                    <Route path="/home">
-                        <Home />
-                    </Route>
-                    <Route path="/login">
-                        <Login />
-                    </Route>
-                    <Route path="/register">
-                        <Register />
-                    </Route>
-                    <Route path="/account">
-                        <Account />
-                    </Route>
-                </Switch>
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/login" element={<Login />}/>
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/account" element={<Account />} />
+                </Routes>
                 <Footer />
             </div>
         </Router>
