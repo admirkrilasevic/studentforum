@@ -1,14 +1,9 @@
-import AuthService from "../utils/AuthService";
+import AuthService from '../utils/AuthService'
 
-function Account(){
+function Account() {
+    const user = AuthService.getCurrentUser()
 
-    const user = AuthService.getCurrentUser();
-
-    return(
-        <div>
-            Welcome {user.name}
-        </div>
-    );
+    return <div>Welcome {user.name}</div>
 }
 
-export default Account;
+export default Account

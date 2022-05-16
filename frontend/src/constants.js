@@ -1,3 +1,3 @@
 export const ENVIRONMENT = {
-    HOST: "http://localhost/studentforum",
+    HOST: 'http://localhost/studentforum',
 }
