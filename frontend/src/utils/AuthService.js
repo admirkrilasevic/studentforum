@@ -15,9 +15,6 @@ const register = (name, email, password, faculty_id, department_id) => {
         password,
         faculty_id,
         department_id,
-    }, {
-        headers: 
-            {"Access-Control-Allow-Origin": "*"}
     })
 }
 
