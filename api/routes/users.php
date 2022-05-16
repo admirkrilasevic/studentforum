@@ -34,9 +34,9 @@ Flight::route('PUT /user/account', function () {
 });
 
 Flight::route('GET /confirm/@token', function ($token) {
-	Flight::jwt(Flight::userService()->confirm($token));
-	header("Location: " . '//' . $_SERVER["SERVER_NAME"] . str_replace("/api/index.php", "/login.html", $_SERVER["SCRIPT_NAME"]));
-	exit();
+    Flight::jwt(Flight::userService()->confirm($token));
+    header("Location: " . '//' . $_SERVER["SERVER_NAME"] . str_replace("studentforum/api/index.php", "/login", $_SERVER["SCRIPT_NAME"]));
+    exit();
 });
 
 Flight::route('POST /login', function () {
