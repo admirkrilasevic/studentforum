@@ -1,0 +1,51 @@
+.header {
+    height: 100px;
+    border-bottom: 1px solid #0c1e66;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.headerLinks {
+    font-weight: 700;
+    font-size: 24px;
+    text-decoration: none;
+    color: inherit;
+    margin-top: 35px;
+}
+
+.headerLinks:hover {
+    color: #0c1e66;
+}
+
+.icons {
+    color: inherit;
+    margin-top: 35px;
+    text-decoration: none;
+}
+
+.icons:hover {
+    color: #0c1e66;
+}
+
+.icons svg {
+    height: 30px;
+    width: 30px;
+}
+
+.icons span {
+    background-color: #0c1e66;
+    vertical-align: super;
+    border-radius: 50%;
+    padding: 1px 5px;
+    color: white;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 24px;
+    text-decoration: none;
+    color: inherit;
+    margin-top: 35px;
+}
