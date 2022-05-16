@@ -12,7 +12,7 @@ function Register() {
 
     const handleRegister = async () => {
         const response = await AuthService.register(name, email, password, facultyId, departmentId)
-        setMessage(response)
+        setMessage(response.data.message)
     }
 
     return (
