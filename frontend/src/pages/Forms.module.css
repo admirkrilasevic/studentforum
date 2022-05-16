@@ -77,25 +77,3 @@
 .registerMessage {
     margin: 40px 0;
 }
-
-.doneButton {
-    text-decoration: none;
-    border: none;
-    background-color: #0c1e66;
-    padding: 12px 100px;
-    font-weight: bold;
-    font-size: 18px;
-    color: #FFF;
-    margin-top: 50px;
-}
-
-.doneButton:hover {
-    text-decoration: none;
-    border: none;
-    background-color: #237723 ;
-    padding: 12px 100px;
-    font-weight: bold;
-    font-size: 18px;
-    color: #FFF;
-    margin-top: 50px;
-}

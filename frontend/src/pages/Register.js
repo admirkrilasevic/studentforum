@@ -1,16 +1,18 @@
 import { useState } from 'react'
+import AuthService from '../utils/AuthService'
 import styles from './Forms.module.css'
 
 function Register() {
-
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [departmentId, setDepartmentId] = useState('')
     const [facultyId, setFacultyId] = useState('')
+    const [message, setMessage] = useState('')
 
-    const handleRegister = () => {
-        console.log(name, email, password, departmentId, facultyId)
+    const handleRegister = async () => {
+        const response = await AuthService.register(name, email, password, facultyId, departmentId)
+        setMessage(response)
     }
 
     return (
@@ -36,7 +38,13 @@ function Register() {
                 <p>Faculty</p>
                 <input type="text" value={facultyId} onChange={(e) => setFacultyId(e.target.value)} className={styles.formInput} />
             </div>
-            <button className={styles.doneButton} onClick={() => handleRegister()}>Register</button>
+            <button className={styles.formSubmitButton} onClick={() => handleRegister()}>Register</button>
+            {
+                message &&
+                <div className={styles.registerMessage}>
+                    {message}
+                </div>
+            }
         </div>
     )
 }
