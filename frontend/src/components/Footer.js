@@ -21,9 +21,6 @@ function Footer() {
                             <p>
                                 <Link to="/contact">Contact</Link>
                             </p>
-                            <p>
-                                <Link to="/impressum">Impressum</Link>
-                            </p>
                         </div>
                     </Col>
                     <Col>
@@ -33,9 +30,6 @@ function Footer() {
                             </p>
                             <p>
                                 <Link to="/terms">Terms and Conditions</Link>
-                            </p>
-                            <p>
-                                <Link to="/guidelines">Seller Guidelines</Link>
                             </p>
                         </div>
                     </Col>
