@@ -34,6 +34,16 @@ Flight::map('jwt', function ($user) {
 	return ["token" => $jwt];
 });
 
+Flight::route('GET /swagger', function(){
+	$openapi = @\OpenApi\scan(dirname(__FILE__)."/routes");
+	header('Content-Type: application/json');
+	echo $openapi->toJson();
+});
+
+Flight::route('GET /', function(){
+	Flight::redirect("/docs");
+});
+
 //register BLL services
 Flight::register('userService', 'UserService');
 Flight::register('questionService', 'QuestionService');
