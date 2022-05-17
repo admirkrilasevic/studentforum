@@ -1,15 +1,7 @@
-import axios from 'axios'
-import { ENVIRONMENT } from '../constants'
-
-let API_URL = ''
-if (process.env.REACT_APP_API_URL) {
-    API_URL = `${process.env.REACT_APP_API_URL}/`
-} else {
-    API_URL = `${ENVIRONMENT.HOST}/api/`
-}
+import API from '../api'
 
 const register = (name, email, password, faculty_id, department_id) => {
-    return axios.post(API_URL + 'register', {
+    return API.post('register', {
         name,
         email,
         password,
@@ -19,8 +11,8 @@ const register = (name, email, password, faculty_id, department_id) => {
 }
 
 const login = (email, password) => {
-    return axios
-        .post(API_URL + 'login', {
+    return API
+        .post('login', {
             email,
             password,
         })
