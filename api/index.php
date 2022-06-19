@@ -3,11 +3,14 @@
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 require_once dirname(__FILE__) . '/services/UserService.class.php';
 require_once dirname(__FILE__) . '/services/QuestionService.class.php';
+require_once dirname(__FILE__) . "/Cors.class.php";
 
-header("Access-Control-Allow-Origin: *");
-header('Content-Type: application/json');
-header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+try {
+  // Allow and set up CORS by calling this function from Cors.class.php file
+  Cors::corsSetup();
+} catch (\Throwable $th) {
+  throw $th;
+}
 
 Flight::set('flight.log_errors', TRUE);
 
