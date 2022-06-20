@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
@@ -20,8 +19,8 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
-          <Route exact path="/" element={<Navigate to="/home" replace />} />
-          <Route path="/home" element={<Home />} />
+          <Route exact path="/" element={<Navigate to="/home/0" replace />} />
+          <Route path="/home/:department" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/account" element={<Account />} />
