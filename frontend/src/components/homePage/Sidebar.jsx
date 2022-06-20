@@ -19,7 +19,7 @@ function Sidebar() {
     <div className={styles.sidebar}>
       {faculties.map((faculty) => {
         return (
-          <div>
+          <div key={faculty.id}>
             <Faculty faculty={faculty} />
           </div>
         );

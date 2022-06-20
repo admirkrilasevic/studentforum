@@ -31,7 +31,11 @@ function Faculty({ faculty }) {
         <div className={styles.departments}>
           {departments.map((department) => {
             return (
-              <Link to={`/home/${department.id}`} className={styles.department}>
+              <Link
+                key={department.id}
+                to={`/home/${department.id}`}
+                className={styles.department}
+              >
                 {department.name}
               </Link>
             );
