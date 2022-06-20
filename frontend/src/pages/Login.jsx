@@ -13,7 +13,7 @@ function Login() {
     if (response.message) {
       setMessage(response.message);
     } else {
-      window.location.replace("/home");
+      window.location.replace("/home/0");
     }
   };
 
