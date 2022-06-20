@@ -20,6 +20,12 @@
     color: #000;
 }
 
+.department {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+}
+
 .department:hover {
     color: #237723;
     cursor: pointer;

@@ -14,7 +14,15 @@ const getDepartmentsForFaculty = (facultyId) => {
     })
 }
 
+const getDepartmentById = (departmentId) => {
+    return API.get(`/department/${departmentId}`)
+    .then((response) => {
+        return response.data
+    })
+}
+
 export default {
     getFaculties,
-    getDepartmentsForFaculty
+    getDepartmentsForFaculty,
+    getDepartmentById
 }

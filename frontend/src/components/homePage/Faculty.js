@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import FacultyService from '../../utils/FacultyService';
 import styles from './Sidebar.module.css'
 
@@ -27,9 +28,9 @@ function Faculty({faculty}) {
             {departments && departments.length > 0 && <div className={styles.departments}>
                 {departments.map((department) => {
                     return (
-                        <div className={styles.department}>
+                        <Link to={`/home/${department.id}`} className={styles.department}>
                             {department.name}
-                        </div>
+                        </Link>
                     )
                 })}
             </div>}
