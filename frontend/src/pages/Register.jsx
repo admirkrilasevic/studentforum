@@ -19,21 +19,21 @@ function Register() {
   const handleRegister = async () => {
     if (!name || !email || !password || !faculty || !department) {
       setErrorMessage("Please provide all the required fields.");
+      return;
+    }
+    const response = await AuthService.register(
+      name,
+      email,
+      password,
+      faculty.id,
+      department.id
+    );
+    if (response.status && response.status !== 200) {
+      setMessage(undefined);
+      setErrorMessage(response.data.message);
     } else {
-      const response = await AuthService.register(
-        name,
-        email,
-        password,
-        faculty.id,
-        department.id
-      );
-      if (response.status && response.status !== 200) {
-        setMessage(undefined);
-        setErrorMessage(response.data.message);
-      } else {
-        setErrorMessage(undefined);
-        setMessage(response.message);
-      }
+      setErrorMessage(undefined);
+      setMessage(response.message);
     }
   };
 
