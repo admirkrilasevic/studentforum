@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @OA\Info(title="askIBU API", version="1.0")
  * @OA\OpenApi(
@@ -8,7 +9,7 @@
  * @OA\SecurityScheme(securityScheme="ApiKeyAuth",type="apiKey",in="header",name="Authentication")
  */
 
- /**
+/**
  * @OA\Get(path="/admin/user", tags={"x-admin","user"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="offset", default=0, description="Offset for pagination"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="limit", default=25, description="Limit for pagination"),
@@ -120,9 +121,9 @@ Flight::route('PUT /user/account', function () {
  * )
  */
 Flight::route('GET /confirm/@token', function ($token) {
-    Flight::jwt(Flight::userService()->confirm($token));
-    header("Location: " . '//' . $_SERVER["SERVER_NAME"] . str_replace("studentforum/api/index.php", "/login", $_SERVER["SCRIPT_NAME"]));
-    exit();
+	Flight::jwt(Flight::userService()->confirm($token));
+	header("Location: " . '//' . $_SERVER["SERVER_NAME"] . str_replace("studentforum/api/index.php", "/login", $_SERVER["SCRIPT_NAME"]));
+	exit();
 });
 
 /**

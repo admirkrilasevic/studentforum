@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @OA\Get(path="/user/question",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="offset", default=0, description="Offset for pagination"),

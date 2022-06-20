@@ -1,6 +1,7 @@
 <!-- HTML for static distribution bundle build -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>askIBU API</title>
@@ -32,10 +33,10 @@
     <script src="swagger-ui-bundle.js"> </script>
     <script src="swagger-ui-standalone-preset.js"> </script>
     <script>
-        window.onload = function () {
+        window.onload = function() {
             // Begin Swagger UI call region
             const ui = SwaggerUIBundle({
-                url:"//<?= $_SERVER["SERVER_NAME"] ?><?=str_replace("/docs/","/swagger",$_SERVER["REQUEST_URI"])?>",
+                url: "//<?= $_SERVER["SERVER_NAME"] ?><?= str_replace("/docs/", "/swagger", $_SERVER["REQUEST_URI"]) ?>",
                 dom_id: '#swagger-ui',
                 deepLinking: true,
                 presets: [

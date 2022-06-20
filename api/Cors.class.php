@@ -2,7 +2,7 @@
 class Cors
 {
 
-  public static function corsSetup ()
+  public static function corsSetup()
   {
     if (isset($_SERVER['HTTP_ORIGIN'])) {
       // Decide if the origin in $_SERVER['HTTP_ORIGIN'] is one
@@ -24,5 +24,4 @@ class Cors
       exit(0);
     }
   }
-
 }

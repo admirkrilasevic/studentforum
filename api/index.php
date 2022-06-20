@@ -6,10 +6,10 @@ require_once dirname(__FILE__) . '/services/QuestionService.class.php';
 require_once dirname(__FILE__) . "/Cors.class.php";
 
 try {
-  // Allow and set up CORS by calling this function from Cors.class.php file
-  Cors::corsSetup();
+	// Allow and set up CORS by calling this function from Cors.class.php file
+	Cors::corsSetup();
 } catch (\Throwable $th) {
-  throw $th;
+	throw $th;
 }
 
 Flight::set('flight.log_errors', TRUE);
@@ -37,13 +37,13 @@ Flight::map('jwt', function ($user) {
 	return ["token" => $jwt];
 });
 
-Flight::route('GET /swagger', function(){
-	$openapi = @\OpenApi\scan(dirname(__FILE__)."/routes");
+Flight::route('GET /swagger', function () {
+	$openapi = @\OpenApi\scan(dirname(__FILE__) . "/routes");
 	header('Content-Type: application/json');
 	echo $openapi->toJson();
 });
 
-Flight::route('GET /', function(){
+Flight::route('GET /', function () {
 	Flight::redirect("/docs");
 });
 
