@@ -77,3 +77,22 @@
 .registerMessage {
     margin: 40px 0;
 }
+
+.signInLinkContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 10px;
+	width: 70%;
+}
+
+.linkButton {
+	cursor: pointer;
+	color: #0c1e66;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.linkButton:hover {
+	opacity: 0.8;
+}
