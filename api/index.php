@@ -5,6 +5,7 @@ require_once dirname(__FILE__) . '/services/UserService.class.php';
 require_once dirname(__FILE__) . '/services/QuestionService.class.php';
 require_once dirname(__FILE__) . '/services/FacultyService.class.php';
 require_once dirname(__FILE__) . '/services/DepartmentService.class.php';
+require_once dirname(__FILE__) . '/services/CourseService.class.php';
 require_once dirname(__FILE__) . "/Cors.class.php";
 
 try {
@@ -54,6 +55,7 @@ Flight::register('userService', 'UserService');
 Flight::register('questionService', 'QuestionService');
 Flight::register('facultyService', 'FacultyService');
 Flight::register('departmentService', 'DepartmentService');
+Flight::register('courseService', 'CourseService');
 
 //include all routes
 require_once dirname(__FILE__) . "/routes/middleware.php";
@@ -61,6 +63,7 @@ require_once dirname(__FILE__) . "/routes/users.php";
 require_once dirname(__FILE__) . "/routes/questions.php";
 require_once dirname(__FILE__) . "/routes/faculties.php";
 require_once dirname(__FILE__) . "/routes/departments.php";
+require_once dirname(__FILE__) . "/routes/courses.php";
 
 
 Flight::start();

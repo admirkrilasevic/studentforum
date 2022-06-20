@@ -12,11 +12,59 @@
   padding: 30px;
 }
 
+.departmentHeader {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #0c1e66;
+}
+
 .departmentName {
   font-weight: bold;
   color: #0c1e66;
   padding: 10px;
-  width: 100%;
   text-align: left;
-  border-bottom: 1px solid #0c1e66;
+}
+
+.departmentName:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.chevronRight {
+  color: #0c1e66;
+  font-size: 15px;
+  padding: 10px;
+}
+
+.courseName {
+  font-weight: bold;
+  color: #0c1e66;
+  padding: 10px;
+  text-align: left;
+}
+
+.departmentContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerText {
+  font-size: 30px;
+  margin-top: 20px;
+}
+
+.courseContainer {
+  width: 70%;
+  background-color: #0c1e66;
+  padding: 20px;
+  color: #ffffff;
+  border-radius: 10px;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.courseContainer:hover {
+  opacity: 0.7;
+  cursor: pointer;
 }
