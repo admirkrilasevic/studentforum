@@ -1,43 +1,48 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import SelectInput from "../components/SelectInput/SelectInput";
 import AuthService from "../utils/AuthService";
+import FacultyService from "../utils/FacultyService";
 import styles from "./Forms.module.css";
-
-const MOCK_DATA = [
-  {
-    id: 1,
-    name: "Vedran",
-  },
-  {
-    id: 2,
-    name: "Sara",
-  },
-  {
-    id: 3,
-    name: "Admir",
-  },
-  {
-    id: 4,
-    name: "Eldar",
-  },
-];
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [faculty, setFaculty] = useState();
+  const [department, setDepartment] = useState();
   const [message, setMessage] = useState("");
+  const [faculties, setFaculties] = useState([]);
+  const [departments, setDepartments] = useState([]);
 
   const handleRegister = async () => {
     const response = await AuthService.register(
       name,
       email,
       password,
-      faculty.id
+      faculty.id,
+      department.id
     );
     setMessage(response.data.message);
   };
+
+  const getFaculties = async () => {
+    const response = await FacultyService.getFaculties();
+    setFaculties(response);
+  };
+
+  const getDepartments = async () => {
+    const response = await FacultyService.getDepartmentsForFaculty(faculty.id);
+    setDepartments(response);
+  };
+
+  useEffect(() => {
+    getFaculties();
+  }, []);
+
+  useEffect(() => {
+    getDepartments();
+  }, [faculty]);
 
   return (
     <div className={styles.formContainer}>
@@ -73,7 +78,7 @@ function Register() {
         <p>Faculty</p>
         <SelectInput
           value={faculty}
-          items={MOCK_DATA}
+          items={faculties}
           selectItem={setFaculty}
           hint="Choose a faculty"
         />
@@ -82,9 +87,9 @@ function Register() {
         <div className={styles.formSection}>
           <p>Department</p>
           <SelectInput
-            value={faculty}
-            items={MOCK_DATA}
-            selectItem={setFaculty}
+            value={department}
+            items={departments}
+            selectItem={setDepartment}
             hint="Choose a department"
           />
         </div>
