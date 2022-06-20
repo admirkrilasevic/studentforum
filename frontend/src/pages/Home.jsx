@@ -27,7 +27,9 @@ function Home() {
   }, [department]);
 
   useEffect(() => {
+    // eslint-disable-next-line array-callback-return
     const temp = retrievedCourses.find((course) => {
+      // eslint-disable-next-line eqeqeq
       if (course.id == courseId) {
         return course;
       }
