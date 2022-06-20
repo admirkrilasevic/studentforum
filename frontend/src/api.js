@@ -1,23 +1,24 @@
-import axios from 'axios';
-import { ENVIRONMENT } from './constants'
+import axios from "axios";
+import { ENVIRONMENT } from "./constants";
 
-let API_URL = ''
+let API_URL = "";
 if (process.env.REACT_APP_API_URL) {
-    API_URL = `${process.env.REACT_APP_API_URL}/api/`
+  API_URL = `${process.env.REACT_APP_API_URL}/api/`;
 } else {
-    API_URL = `${ENVIRONMENT.HOST}/api/`
+  API_URL = `${ENVIRONMENT.HOST}/api/`;
 }
 const API = axios.create({
-  baseURL: API_URL 
+  baseURL: API_URL,
 });
 
 // Add a request interceptor
-API.interceptors.request.use(function (config) {
+API.interceptors.request.use(
+  (config) =>
     // Do something before request is sent
-    return config;
-  }, function (error) {
+    config,
+  (error) =>
     // Do something with request error
-    return Promise.reject(error);
-  })
+    Promise.reject(error)
+);
 
-export default API
+export default API;
