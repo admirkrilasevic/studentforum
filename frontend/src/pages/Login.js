@@ -8,7 +8,7 @@ function Login() {
     const [message, setMessage] = useState('')
 
     const handleLogin = async () => {
-        const response = await AuthService.login(email, email, password)
+        const response = await AuthService.login(email, password)
 		if (response.data.message) {
   	    	setMessage(response.data.message)
 		}
