@@ -7,7 +7,9 @@ const register = (name, email, password, facultyId, departmentId) =>
     password,
     faculty_id: facultyId,
     department_id: departmentId,
-  });
+  })
+    .then((response) => response.data)
+    .catch((error) => error.response);
 
 const login = (email, password) =>
   API.post("login", {

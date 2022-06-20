@@ -11,19 +11,30 @@ function Register() {
   const [password, setPassword] = useState("");
   const [faculty, setFaculty] = useState();
   const [department, setDepartment] = useState();
-  const [message, setMessage] = useState("");
   const [faculties, setFaculties] = useState([]);
   const [departments, setDepartments] = useState([]);
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState([]);
 
   const handleRegister = async () => {
-    const response = await AuthService.register(
-      name,
-      email,
-      password,
-      faculty.id,
-      department.id
-    );
-    setMessage(response.data.message);
+    if (!name || !email || !password || !faculty || !department) {
+      setErrorMessage("Please provide all the required fields.");
+    } else {
+      const response = await AuthService.register(
+        name,
+        email,
+        password,
+        faculty.id,
+        department.id
+      );
+      if (response.status && response.status !== 200) {
+        setMessage(undefined);
+        setErrorMessage(response.data.message);
+      } else {
+        setErrorMessage(undefined);
+        setMessage(response.message);
+      }
+    }
   };
 
   const getFaculties = async () => {
@@ -105,7 +116,10 @@ function Register() {
       >
         Register
       </button>
-      {message && <div className={styles.registerMessage}>{message}</div>}
+      {message && <div className={styles.successMessage}>{message}</div>}
+      {errorMessage && (
+        <div className={styles.errorMessage}>{errorMessage}</div>
+      )}
     </div>
   );
 }
