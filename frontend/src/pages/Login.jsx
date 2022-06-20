@@ -6,12 +6,16 @@ import styles from "./Forms.module.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      setErrorMessage("Please provide all the required fields.");
+      return;
+    }
     const response = await AuthService.login(email, password);
     if (response.message) {
-      setMessage(response.message);
+      setErrorMessage(response.message);
     } else {
       window.location.replace("/home/0");
     }
@@ -51,7 +55,9 @@ function Login() {
           Sign in
         </Link>
       </div>
-      {message && <div className={styles.registerMessage}>{message}</div>}
+      {errorMessage && (
+        <div className={styles.errorMessage}>{errorMessage}</div>
+      )}
     </div>
   );
 }
