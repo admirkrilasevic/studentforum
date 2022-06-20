@@ -1,8 +1,8 @@
-import styles from "./Header.module.css";
 import { NavLink } from "react-router-dom";
 import { FaUser as Account } from "react-icons/fa";
 import { ImEnter as SignIn } from "react-icons/im";
 import AuthService from "../../utils/AuthService";
+import styles from "./Header.module.css";
 
 function Header() {
   const loggedIn = !!AuthService.getCurrentUser();
@@ -10,7 +10,7 @@ function Header() {
   return (
     <div className={styles.header}>
       <NavLink
-        to={"/home/0"}
+        to="/home/0"
         className={styles.headerLinks}
         activeStyle={{ color: "#0c1e66" }}
       >

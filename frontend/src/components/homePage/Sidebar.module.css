@@ -1,32 +1,32 @@
 .sidebar {
-    background-color: #D8D8D8;
-    height: 100%;
+  background-color: #d8d8d8;
+  height: 100%;
 }
 
 .faculty {
-    text-align: left;
-    padding: 10px 30px;
-    color: #000;
+  text-align: left;
+  padding: 10px 30px;
+  color: #000;
 }
 
 .faculty:hover {
-    color: #0c1e66;
-    cursor: pointer;
+  color: #0c1e66;
+  cursor: pointer;
 }
 
 .departments {
-    text-align: left;
-    padding: 10px 50px;
-    color: #000;
+  text-align: left;
+  padding: 10px 50px;
+  color: #000;
 }
 
 .department {
-    color: inherit;
-    text-decoration: none;
-    display: block;
+  color: inherit;
+  text-decoration: none;
+  display: block;
 }
 
 .department:hover {
-    color: #237723;
-    cursor: pointer;
+  color: #237723;
+  cursor: pointer;
 }

@@ -1,22 +1,22 @@
 .welcomeMessage {
-    padding: 200px;
+  padding: 200px;
 }
 
 .homeContainer {
-    margin: 0px;
-    padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
 .department {
-    margin-bottom: 500px;
-    padding: 30px;
+  margin-bottom: 500px;
+  padding: 30px;
 }
 
 .departmentName {
-    font-weight: bold;
-    color: #0c1e66;
-    padding: 10px;
-    width: 100%;
-    text-align: left;
-    border-bottom: 1px solid #0c1e66;
+  font-weight: bold;
+  color: #0c1e66;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid #0c1e66;
 }
