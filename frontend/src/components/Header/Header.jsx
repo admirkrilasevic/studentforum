@@ -10,7 +10,7 @@ function Header() {
   return (
     <div className={styles.header}>
       <NavLink
-        to="/home/0"
+        to="/home"
         className={styles.headerLinks}
         activeStyle={{ color: "#0c1e66" }}
       >

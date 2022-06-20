@@ -10,6 +10,7 @@
 .department {
   margin-bottom: 500px;
   padding: 30px;
+  text-align: left;
 }
 
 .departmentName {
@@ -17,6 +18,36 @@
   color: #0c1e66;
   padding: 10px;
   width: 100%;
-  text-align: left;
   border-bottom: 1px solid #0c1e66;
+}
+
+.departmentName a {
+  color: #0c1e66;
+  text-decoration: none;
+}
+
+.departmentName a:hover {
+  color: #237723;
+}
+
+.selectCourse {
+  padding: 10px;
+  font-weight: bold;
+}
+
+.selectedCourse {
+  color: #237723;
+}
+
+.courses {
+  padding: 10px;
+}
+
+.course a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.course a:hover {
+  color: #0c1e66;
 }

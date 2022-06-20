@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Sidebar from "../components/homePage/Sidebar";
 import FacultyService from "../utils/FacultyService";
 import styles from "./Home.module.css";
 
 function Home() {
   const { department } = useParams();
+  const { courseId } = useParams();
 
   const [retrievedDepartment, setRetrievedDepartment] = useState(null);
+  const [retrievedCourses, setRetrievedCourses] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   const retrieve = async (id) => {
-    const response = await FacultyService.getDepartmentById(id);
-    setRetrievedDepartment(response);
+    const departmentResponse = await FacultyService.getDepartmentById(id);
+    setRetrievedDepartment(departmentResponse);
+    const coursesResponse = await FacultyService.getCoursesForDepartment(id);
+    setRetrievedCourses(coursesResponse);
   };
 
   useEffect(() => {
@@ -21,6 +26,15 @@ function Home() {
     }
   }, [department]);
 
+  useEffect(() => {
+    const temp = retrievedCourses.find((course) => {
+      if (course.id == courseId) {
+        return course;
+      }
+    });
+    setSelectedCourse(temp);
+  }, [retrievedCourses, courseId]);
+
   return (
     <Container className={styles.homeContainer}>
       <Row>
@@ -28,7 +42,7 @@ function Home() {
           <Sidebar />
         </Col>
         <Col>
-          {department === "0" ? (
+          {!department ? (
             <div className={styles.welcomeMessage}>
               Welcome to askIBU! <br />
               Choose a deparment from the side menu to view courses and
@@ -37,8 +51,43 @@ function Home() {
           ) : (
             <div className={styles.department}>
               <div className={styles.departmentName}>
-                {retrievedDepartment && retrievedDepartment.name}
+                {retrievedDepartment && (
+                  <Link to={`/home/${retrievedDepartment.id}`}>
+                    {retrievedDepartment.name}
+                  </Link>
+                )}
+                {selectedCourse && (
+                  <span>
+                    &ensp;
+                    {"->"}
+                    &ensp;
+                    <span className={styles.selectedCourse}>
+                      {selectedCourse.name}
+                    </span>
+                  </span>
+                )}
               </div>
+              {!courseId ? (
+                <div>
+                  <div className={styles.selectCourse}>
+                    Select a course below
+                  </div>
+                  <div className={styles.courses}>
+                    {retrievedCourses.map((course) => (
+                      <div className={styles.course} key={course.id}>
+                        <Link
+                          to={`/home/${department}/${course.id}`}
+                          className={styles.courseLink}
+                        >
+                          {course.name}
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>Questions for course here</div>
+              )}
             </div>
           )}
         </Col>
