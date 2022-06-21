@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import API from "../api";
 
 const getFaculties = () => {
@@ -19,9 +20,7 @@ const getDepartmentById = (departmentId) => {
 };
 
 const getDepartmentCourses = (departmentId) => {
-  return API.get(`/courses`, {
-    department_id: departmentId,
-  }).then((response) => {
+  return API.get(`/courses/${departmentId}`).then((response) => {
     return response.data;
   });
 };

@@ -9,16 +9,12 @@ class CourseDao extends BaseDao
 		parent::__construct("courses");
 	}
 
-	public function get_courses($semester_id, $search, $order, $department_id)
+	public function get_courses($search, $order, $department_id)
 	{
 		list($order_column, $order_direction) = self::parse_order($order);
 		$params = [];
 		$query = "SELECT * FROM courses WHERE 1=1";
 
-		if (isset($semester_id)) {
-			$query .= " AND semester_id = :semester_id";
-			$params["semester_id"] = $semester_id;
-		}
 		if (isset($department_id)) {
 			$query .= " AND department_id = :department_id";
 			$params["department_id"] = $department_id;

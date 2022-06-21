@@ -20,9 +20,15 @@
 
 .departmentName {
   font-weight: bold;
+  font-size: 26px;
   color: #0c1e66;
   padding: 10px;
   text-align: left;
+}
+
+.departmentName a {
+  color: #0c1e66;
+  text-decoration: none;
 }
 
 .departmentName:hover {
@@ -38,9 +44,10 @@
 
 .courseName {
   font-weight: bold;
-  color: #0c1e66;
+  color: #237723;
   padding: 10px;
   text-align: left;
+  font-size: 26px;
 }
 
 .departmentContent {
@@ -64,7 +71,36 @@
   font-size: 20px;
 }
 
+.courseContainer a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .courseContainer:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+
+.addQuestion {
+  margin-right: 0px;
+  margin-left: auto;
+  font-size: 18px;
+}
+
+.addQuestion button {
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 2px solid #0c1e66;
+  background-color: #fff;
+  font-weight: bold;
+  color: #0c1e66;
+}
+
+.addQuestion button:hover {
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 2px solid #0c1e66;
+  background-color: #0c1e66;
+  font-weight: bold;
+  color: #fff;
 }

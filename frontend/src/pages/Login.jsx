@@ -17,7 +17,7 @@ function Login() {
     if (response.message) {
       setErrorMessage(response.message);
     } else {
-      window.location.replace("/home/0");
+      window.location.replace("/home");
     }
   };
 

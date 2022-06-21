@@ -84,14 +84,14 @@ Flight::route("GET /user/answers/@id", function ($id) {
 });
 
 /**
- * @OA\Get(path="/user/answers-by-question/{id}",tags={"x-user","answer"},security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/answers-by-question/{id}",tags={"x-user","answer"},
  *     @OA\Parameter(type="integer", in="path", allowReserved=true, name="id", default=1, description="id of a question"),
  *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="status", description="Search by status"),
  *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="order", default="-id", description="Sorting for return elements. -column_name ascending order by column_name, +column_name descending order by column_name"),
  *     @OA\Response(response="200", description="Get answers by question id")
  * )
  */
-Flight::route("GET /user/answers-by-question/@id", function ($id) {
+Flight::route("GET /answers-by-question/@id", function ($id) {
 	$order = Flight::query('order', '-id');
 	$status = Flight::query("status", "ACTIVE");
 	Flight::json(Flight::answerService()->get_answer_by_question_id($id, $order, $status));
