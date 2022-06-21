@@ -2,6 +2,8 @@ import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import QuestionService from "../../utils/QuestionService";
 import styles from "./Question.module.css";
 
@@ -37,8 +39,25 @@ function Question({ question }) {
     retrieveAnswers(question.id);
   };
 
+  const handleAddClick = () => {
+    if (!localStorage.getItem("user")) {
+      toast.error("You must be logged in to add an answer", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      setShowForm(!showForm);
+    }
+  };
+
   return (
     <Container key={question.id} className={styles.questionContainer}>
+      <ToastContainer />
       <Row
         className={
           expanded ? styles.questionHeaderExpanded : styles.questionHeader
@@ -99,9 +118,7 @@ function Question({ question }) {
             })}
             {!showForm && (
               <div className={styles.addAnswer}>
-                <button onClick={() => setShowForm(!showForm)}>
-                  Add answer
-                </button>
+                <button onClick={() => handleAddClick()}>Add answer</button>
               </div>
             )}
             {showForm && (

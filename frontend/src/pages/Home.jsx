@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import QuestionService from "../utils/QuestionService";
 import Question from "../components/homePage/Question";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styles from "./Home.module.css";
 
 function Home() {
@@ -67,6 +69,22 @@ function Home() {
     retrieveQuestions(courseId);
   };
 
+  const handleAddClick = () => {
+    if (!localStorage.getItem("user")) {
+      toast.error("You must be logged in to add a question", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      setShowForm(!showForm);
+    }
+  };
+
   return (
     <Container className={styles.homeContainer}>
       <Row>
@@ -103,13 +121,14 @@ function Home() {
                 )}
                 <div className={styles.addQuestion}>
                   {courseId && (
-                    <button onClick={() => setShowForm(!showForm)}>
+                    <button onClick={() => handleAddClick()}>
                       Add question
                     </button>
                   )}
                 </div>
               </div>
               <div className={styles.departmentContent}>
+                <ToastContainer />
                 {showForm && (
                   <div className={styles.formContainer}>
                     <h3 className={styles.formTitle}>Add a Question</h3>
