@@ -21,7 +21,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Navigate to="/home" replace />} />
           <Route exact path="/home" element={<Home />} />
-          <Route path="/home/:department" element={<Home />} />
+          <Route exact path="/home/:department" element={<Home />} />
+          <Route path="/home/:department/:courseId" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/account" element={<Account />} />
