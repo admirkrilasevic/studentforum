@@ -88,29 +88,42 @@ function Home() {
               </div>
               <div className={styles.departmentContent}>
                 {!courseId ? (
-                  <>
-                    <div className={styles.headerText}>
-                      Please choose a course
-                    </div>
-                    {coursesList.map((course) => {
-                      return (
-                        <div key={course.id} className={styles.courseContainer}>
-                          <Link
-                            to={`/home/${department}/${course.id}`}
-                            className={styles.courseLink}
+                  coursesList && coursesList.length > 0 ? (
+                    <>
+                      <div className={styles.headerText}>
+                        Please choose a course
+                      </div>
+                      {coursesList.map((course) => {
+                        return (
+                          <div
+                            key={course.id}
+                            className={styles.courseContainer}
                           >
-                            {course.name}
-                          </Link>
-                        </div>
-                      );
-                    })}
-                  </>
-                ) : (
+                            <Link
+                              to={`/home/${department}/${course.id}`}
+                              className={styles.courseLink}
+                            >
+                              {course.name}
+                            </Link>
+                          </div>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <div className={styles.headerText}>
+                      No courses available
+                    </div>
+                  )
+                ) : questionsList && questionsList.length > 0 ? (
                   <>
                     {questionsList.map((question) => {
                       return <Question question={question} />;
                     })}
                   </>
+                ) : (
+                  <div className={styles.headerText}>
+                    No questions available
+                  </div>
                 )}
               </div>
             </div>
