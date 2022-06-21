@@ -19,9 +19,7 @@ const getDepartmentById = (departmentId) => {
 };
 
 const getDepartmentCourses = (departmentId) => {
-  return API.get(`/courses`, {
-    department_id: departmentId,
-  }).then((response) => {
+  return API.get(`/courses/${departmentId}`).then((response) => {
     return response.data;
   });
 };
