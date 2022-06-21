@@ -10,28 +10,7 @@ function Footer() {
         <Row className={styles.footerContent}>
           <Col>
             <div className={styles.footerColumn}>
-              <p>{new Date().getFullYear()}</p>
-              <p>© askIBU</p>
-            </div>
-          </Col>
-          <Col>
-            <div className={styles.footerColumn}>
-              <p>
-                <Link to="/about">About Us</Link>
-              </p>
-              <p>
-                <Link to="/contact">Contact</Link>
-              </p>
-            </div>
-          </Col>
-          <Col>
-            <div className={styles.footerColumn}>
-              <p>
-                <Link to="/privacy">Privacy Policy</Link>
-              </p>
-              <p>
-                <Link to="/terms">Terms and Conditions</Link>
-              </p>
+              © &nbsp; {new Date().getFullYear()} &nbsp; askIBU
             </div>
           </Col>
         </Row>
