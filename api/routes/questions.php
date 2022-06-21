@@ -162,7 +162,7 @@ Flight::route("PUT /admin/retrieve/questions/@id", function ($id) {
 });
 
 /**
- * @OA\Post(path="/user/question",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
+ * @OA\Post(path="/user/questions",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
  * @OA\RequestBody(description="Question info", required=true,
  *    @OA\MediaType(
  *      mediaType="application/json",

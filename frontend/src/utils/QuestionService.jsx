@@ -13,7 +13,28 @@ const getAnswersForQuestion = (questionId) => {
   });
 };
 
+const postQuestion = async (question) =>
+  API.post("user/questions", {
+    subject: question.subject,
+    body: question.body,
+    department_id: question.department_id,
+    course_id: question.course_id,
+    semester_id: question.semester_id,
+  })
+    .then((response) => response.data)
+    .catch((error) => error.response);
+
+const postAnswer = async (data) =>
+  API.post("user/answers", {
+    body: data.answerBody,
+    question_id: data.question_id,
+  })
+    .then((response) => response.data)
+    .catch((error) => error.response);
+
 export default {
   getQuestionsForCourse,
   getAnswersForQuestion,
+  postQuestion,
+  postAnswer,
 };

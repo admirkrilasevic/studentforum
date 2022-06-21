@@ -5,9 +5,11 @@ import Sidebar from "../components/homePage/Sidebar";
 import FacultyService from "../utils/FacultyService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import styles from "./Home.module.css";
 import QuestionService from "../utils/QuestionService";
 import Question from "../components/homePage/Question";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import styles from "./Home.module.css";
 
 function Home() {
   const { department } = useParams();
@@ -17,6 +19,11 @@ function Home() {
   const [coursesList, setCoursesList] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [questionsList, setQuestionsList] = useState([]);
+
+  const [showForm, setShowForm] = useState(false);
+
+  const [body, setBody] = useState("");
+  const [subject, setSubject] = useState("");
 
   const retrieve = async (id) => {
     const departmentResponse = await FacultyService.getDepartmentById(id);
@@ -47,6 +54,36 @@ function Home() {
     setSelectedCourse(temp);
     retrieveQuestions(courseId);
   }, [coursesList, courseId]);
+
+  const addQuestion = async () => {
+    setShowForm(false);
+    const question = {
+      body,
+      subject,
+      course_id: selectedCourse.id,
+      department_id: retrievedDepartment.id,
+      semester_id: selectedCourse.semester_id,
+    };
+    const response = await QuestionService.postQuestion(question);
+    console.log(response);
+    retrieveQuestions(courseId);
+  };
+
+  const handleAddClick = () => {
+    if (!localStorage.getItem("user")) {
+      toast.error("You must be logged in to add a question", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      setShowForm(!showForm);
+    }
+  };
 
   return (
     <Container className={styles.homeContainer}>
@@ -83,10 +120,48 @@ function Home() {
                   </>
                 )}
                 <div className={styles.addQuestion}>
-                  {courseId && <button>Add question</button>}
+                  {courseId && (
+                    <button onClick={() => handleAddClick()}>
+                      Add question
+                    </button>
+                  )}
                 </div>
               </div>
               <div className={styles.departmentContent}>
+                <ToastContainer />
+                {showForm && (
+                  <div className={styles.formContainer}>
+                    <h3 className={styles.formTitle}>Add a Question</h3>
+                    <div className={styles.formSection}>
+                      <span>Subject</span>
+                      <input
+                        type="text"
+                        className={styles.formInput}
+                        onChange={(e) => setSubject(e.target.value)}
+                      />
+                    </div>
+                    <div className={styles.formSection}>
+                      <span>Body</span>
+                      <input
+                        type="text"
+                        className={styles.formInput}
+                        onChange={(e) => setBody(e.target.value)}
+                      />
+                    </div>
+                    <button
+                      className={styles.formSubmitButton}
+                      onClick={() => addQuestion()}
+                    >
+                      Add
+                    </button>
+                    <span
+                      className={styles.hide}
+                      onClick={() => setShowForm(!showForm)}
+                    >
+                      Hide
+                    </span>
+                  </div>
+                )}
                 {!courseId ? (
                   coursesList && coursesList.length > 0 ? (
                     <>
