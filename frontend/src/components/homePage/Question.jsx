@@ -83,6 +83,9 @@ function Question({ question }) {
                 </div>
               );
             })}
+            <div className={styles.addAnswer}>
+              <button>Add answer</button>
+            </div>
           </div>
         ) : (
           <div className={styles.noAnswers}>No answers yet</div>

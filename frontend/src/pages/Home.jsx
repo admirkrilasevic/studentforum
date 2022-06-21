@@ -82,6 +82,9 @@ function Home() {
                     </div>
                   </>
                 )}
+                <div className={styles.addQuestion}>
+                  {courseId && <button>Add question</button>}
+                </div>
               </div>
               <div className={styles.departmentContent}>
                 {!courseId ? (
