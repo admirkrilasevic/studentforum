@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Home.module.css";
 import QuestionService from "../utils/QuestionService";
+import Question from "../components/homePage/Question";
 
 function Home() {
   const { department } = useParams();
@@ -104,19 +105,7 @@ function Home() {
                 ) : (
                   <>
                     {questionsList.map((question) => {
-                      return (
-                        <div
-                          key={question.id}
-                          className={styles.questionContainer}
-                        >
-                          <div className={styles.questionSubject}>
-                            <strong>{question.subject}</strong>
-                          </div>
-                          <div className={styles.questionBody}>
-                            {question.body}
-                          </div>
-                        </div>
-                      );
+                      return <Question question={question} />;
                     })}
                   </>
                 )}

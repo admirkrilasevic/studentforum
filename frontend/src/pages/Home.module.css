@@ -80,14 +80,3 @@
   opacity: 0.7;
   cursor: pointer;
 }
-
-.questionContainer {
-  width: 70%;
-  background-color: #d4cece;
-  padding: 20px;
-  color: #000;
-  border-radius: 10px;
-  margin-top: 10px;
-  font-size: 20px;
-  text-align: left;
-}

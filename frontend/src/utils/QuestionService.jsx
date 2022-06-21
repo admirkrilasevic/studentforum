@@ -7,6 +7,13 @@ const getQuestionsForCourse = (courseId) => {
   });
 };
 
+const getAnswersForQuestion = (questionId) => {
+  return API.get(`answers-by-question/${questionId}`).then((response) => {
+    return response.data;
+  });
+};
+
 export default {
   getQuestionsForCourse,
+  getAnswersForQuestion,
 };
