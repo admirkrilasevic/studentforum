@@ -37,7 +37,7 @@ function Home() {
         <Col xs={3}>
           <Sidebar />
         </Col>
-        <Col>
+        <Col xs={8}>
           {department === "0" ? (
             <div className={styles.welcomeMessage}>
               Welcome to askIBU! <br />
