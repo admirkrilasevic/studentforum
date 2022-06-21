@@ -24,8 +24,17 @@ const postQuestion = async (question) =>
     .then((response) => response.data)
     .catch((error) => error.response);
 
+const postAnswer = async (data) =>
+  API.post("user/answers", {
+    body: data.answerBody,
+    question_id: data.question_id,
+  })
+    .then((response) => response.data)
+    .catch((error) => error.response);
+
 export default {
   getQuestionsForCourse,
   getAnswersForQuestion,
   postQuestion,
+  postAnswer,
 };

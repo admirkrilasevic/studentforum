@@ -98,7 +98,7 @@ Flight::route("GET /answers-by-question/@id", function ($id) {
 });
 
 /**
- * @OA\Post(path="/user/answer",tags={"x-user","answer"},security={{"ApiKeyAuth": {}}},
+ * @OA\Post(path="/user/answers",tags={"x-user","answer"},security={{"ApiKeyAuth": {}}},
  * @OA\RequestBody(description="Answer info", required=true,
  *    @OA\MediaType(
  *      mediaType="application/json",

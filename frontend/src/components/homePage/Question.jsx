@@ -9,6 +9,9 @@ function Question({ question }) {
   const [expanded, setExpanded] = useState(false);
   const [answers, setAnswers] = useState([]);
 
+  const [showForm, setShowForm] = useState(false);
+  const [answerBody, setAnswerBody] = useState("");
+
   const retrieveAnswers = async (id) => {
     const answersResponse = await QuestionService.getAnswersForQuestion(id);
     answersResponse.sort((a, b) => {
@@ -22,6 +25,17 @@ function Question({ question }) {
       retrieveAnswers(question.id);
     }
   }, [question]);
+
+  const addAnswer = async () => {
+    setShowForm(false);
+    const data = {
+      answerBody,
+      question_id: question.id,
+    };
+    const response = await QuestionService.postAnswer(data);
+    console.log(response);
+    retrieveAnswers(question.id);
+  };
 
   return (
     <Container key={question.id} className={styles.questionContainer}>
@@ -83,9 +97,33 @@ function Question({ question }) {
                 </div>
               );
             })}
-            <div className={styles.addAnswer}>
-              <button>Add answer</button>
-            </div>
+            {!showForm && (
+              <div className={styles.addAnswer}>
+                <button onClick={() => setShowForm(!showForm)}>
+                  Add answer
+                </button>
+              </div>
+            )}
+            {showForm && (
+              <div className={styles.addAnswerPrompt}>
+                <textarea
+                  className={styles.answerInput}
+                  onChange={(e) => setAnswerBody(e.target.value)}
+                  placeholder="Add your answer here"
+                ></textarea>
+                <div className={styles.answerButtons}>
+                  <button
+                    className={styles.cancel}
+                    onClick={() => setShowForm(!showForm)}
+                  >
+                    Cancel
+                  </button>
+                  <button className={styles.save} onClick={() => addAnswer()}>
+                    Save
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <div className={styles.noAnswers}>No answers yet</div>
