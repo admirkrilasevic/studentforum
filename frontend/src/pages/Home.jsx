@@ -5,9 +5,9 @@ import Sidebar from "../components/homePage/Sidebar";
 import FacultyService from "../utils/FacultyService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import styles from "./Home.module.css";
 import QuestionService from "../utils/QuestionService";
 import Question from "../components/homePage/Question";
+import styles from "./Home.module.css";
 
 function Home() {
   const { department } = useParams();
@@ -65,11 +65,6 @@ function Home() {
     console.log(response);
   };
 
-  const showAddQuestionForm = (e) => {
-    e.preventDefault();
-    setShowForm(true);
-  };
-
   return (
     <Container className={styles.homeContainer}>
       <Row>
@@ -106,7 +101,7 @@ function Home() {
                 )}
                 <div className={styles.addQuestion}>
                   {courseId && (
-                    <button onClick={(e) => showAddQuestionForm(e)}>
+                    <button onClick={() => setShowForm(!showForm)}>
                       Add question
                     </button>
                   )}
@@ -114,30 +109,36 @@ function Home() {
               </div>
               <div className={styles.departmentContent}>
                 {showForm && (
-                  <div className={styles.addQuestionForm}>
-                    <h3>Add a Question</h3>
-                    <form>
-                      <div className={styles.questionSubject}>
-                        <label>Subject</label>
-                        <input
-                          type="text"
-                          onChange={(e) => setSubject(e.target.value)}
-                        />
-                      </div>
-                      <div className={styles.questionBody}>
-                        <label>Body</label>
-                        <textarea
-                          rows="4"
-                          cols="50"
-                          onChange={(e) => setBody(e.target.value)}
-                        />
-                      </div>
-                      <div className={styles.questionSubmit}>
-                        <button type="submit" onClick={() => addQuestion()}>
-                          Submit
-                        </button>
-                      </div>
-                    </form>
+                  <div className={styles.formContainer}>
+                    <h3 className={styles.formTitle}>Add a Question</h3>
+                    <div className={styles.formSection}>
+                      <span>Subject</span>
+                      <input
+                        type="text"
+                        className={styles.formInput}
+                        onChange={(e) => setSubject(e.target.value)}
+                      />
+                    </div>
+                    <div className={styles.formSection}>
+                      <span>Body</span>
+                      <input
+                        type="text"
+                        className={styles.formInput}
+                        onChange={(e) => setBody(e.target.value)}
+                      />
+                    </div>
+                    <button
+                      className={styles.formSubmitButton}
+                      onClick={() => addQuestion()}
+                    >
+                      Add
+                    </button>
+                    <span
+                      className={styles.hide}
+                      onClick={() => setShowForm(!showForm)}
+                    >
+                      Hide
+                    </span>
                   </div>
                 )}
                 {!courseId ? (
