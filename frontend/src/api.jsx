@@ -13,9 +13,12 @@ const API = axios.create({
 
 // Add a request interceptor
 API.interceptors.request.use(
-  (config) =>
+  (config) => {
     // Do something before request is sent
-    config,
+    const user = JSON.parse(localStorage.getItem("user"));
+    user && (config.headers.Authentication = user.token);
+    return config;
+  },
   (error) =>
     // Do something with request error
     Promise.reject(error)

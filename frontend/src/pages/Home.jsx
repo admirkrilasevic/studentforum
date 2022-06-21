@@ -18,6 +18,11 @@ function Home() {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [questionsList, setQuestionsList] = useState([]);
 
+  const [showForm, setShowForm] = useState(false);
+
+  const [body, setBody] = useState("");
+  const [subject, setSubject] = useState("");
+
   const retrieve = async (id) => {
     const departmentResponse = await FacultyService.getDepartmentById(id);
     setRetrievedDepartment(departmentResponse);
@@ -47,6 +52,23 @@ function Home() {
     setSelectedCourse(temp);
     retrieveQuestions(courseId);
   }, [coursesList, courseId]);
+
+  const addQuestion = async () => {
+    const question = {
+      body,
+      subject,
+      course_id: selectedCourse.id,
+      department_id: retrievedDepartment.id,
+      semester_id: selectedCourse.semester_id,
+    };
+    const response = await QuestionService.postQuestion(question);
+    console.log(response);
+  };
+
+  const showAddQuestionForm = (e) => {
+    e.preventDefault();
+    setShowForm(true);
+  };
 
   return (
     <Container className={styles.homeContainer}>
@@ -83,10 +105,41 @@ function Home() {
                   </>
                 )}
                 <div className={styles.addQuestion}>
-                  {courseId && <button>Add question</button>}
+                  {courseId && (
+                    <button onClick={(e) => showAddQuestionForm(e)}>
+                      Add question
+                    </button>
+                  )}
                 </div>
               </div>
               <div className={styles.departmentContent}>
+                {showForm && (
+                  <div className={styles.addQuestionForm}>
+                    <h3>Add a Question</h3>
+                    <form>
+                      <div className={styles.questionSubject}>
+                        <label>Subject</label>
+                        <input
+                          type="text"
+                          onChange={(e) => setSubject(e.target.value)}
+                        />
+                      </div>
+                      <div className={styles.questionBody}>
+                        <label>Body</label>
+                        <textarea
+                          rows="4"
+                          cols="50"
+                          onChange={(e) => setBody(e.target.value)}
+                        />
+                      </div>
+                      <div className={styles.questionSubmit}>
+                        <button type="submit" onClick={() => addQuestion()}>
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                )}
                 {!courseId ? (
                   coursesList && coursesList.length > 0 ? (
                     <>
