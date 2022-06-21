@@ -19,7 +19,8 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
-          <Route exact path="/" element={<Navigate to="/home/0" replace />} />
+          <Route exact path="/" element={<Navigate to="/home" replace />} />
+          <Route exact path="/home" element={<Home />} />
           <Route path="/home/:department" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
