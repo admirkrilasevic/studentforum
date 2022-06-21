@@ -6,6 +6,7 @@ import FacultyService from "../utils/FacultyService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Home.module.css";
+import QuestionService from "../utils/QuestionService";
 
 function Home() {
   const { department } = useParams();
@@ -14,12 +15,18 @@ function Home() {
   const [retrievedDepartment, setRetrievedDepartment] = useState(null);
   const [coursesList, setCoursesList] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [questionsList, setQuestionsList] = useState([]);
 
   const retrieve = async (id) => {
     const departmentResponse = await FacultyService.getDepartmentById(id);
     setRetrievedDepartment(departmentResponse);
     const coursesResponse = await FacultyService.getDepartmentCourses(id);
     setCoursesList(coursesResponse);
+  };
+
+  const retrieveQuestions = async (id) => {
+    const questionsResponse = await QuestionService.getQuestionsForCourse(id);
+    setQuestionsList(questionsResponse);
   };
 
   useEffect(() => {
@@ -37,6 +44,7 @@ function Home() {
       }
     });
     setSelectedCourse(temp);
+    retrieveQuestions(courseId);
   }, [coursesList, courseId]);
 
   return (
@@ -94,7 +102,23 @@ function Home() {
                     })}
                   </>
                 ) : (
-                  <></>
+                  <>
+                    {questionsList.map((question) => {
+                      return (
+                        <div
+                          key={question.id}
+                          className={styles.questionContainer}
+                        >
+                          <div className={styles.questionSubject}>
+                            <strong>{question.subject}</strong>
+                          </div>
+                          <div className={styles.questionBody}>
+                            {question.body}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
                 )}
               </div>
             </div>

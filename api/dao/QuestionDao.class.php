@@ -50,6 +50,38 @@ class QuestionDao extends BaseDao
 		}
 	}
 
+	public function get_questions_for_course($limit, $offset, $order = "-id", $course_id, $status, $total = FALSE)
+	{
+		list($order_column, $order_direction) = self::parse_order($order);
+		$params = [];
+
+		if ($total) {
+			$query = "SELECT COUNT(*) AS total ";
+		} else {
+			$query = "SELECT questions.*, users.name ";
+		}
+
+		$query .= "FROM questions JOIN users ON questions.user_id=users.id WHERE 1=1";
+
+		if ($course_id != NULL) {
+			$query .= " AND questions.course_id = :course_id";
+			$params["course_id"] = $course_id;
+		}
+		if (isset($status) && $status != "ALL") {
+			$query .= " AND questions.status = :status";
+			$params["status"] = $status;
+		}
+
+		if ($total) {
+			return $this->query_unique($query, $params);
+		} else {
+			$query .= " ORDER BY questions.${order_column} ${order_direction} ";
+			$query .= "LIMIT ${limit} OFFSET ${offset}";
+
+			return $this->query($query, $params);
+		}
+	}
+
 	public function get_questions_by_question_id($user_id, $id)
 	{
 		return $this->query_unique("SELECT * FROM questions WHERE id = :id AND user_id = :user_id", ["id" => $id, "user_id" => $user_id]);
