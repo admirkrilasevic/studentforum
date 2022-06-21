@@ -20,9 +20,15 @@
 
 .departmentName {
   font-weight: bold;
+  font-size: 26px;
   color: #0c1e66;
   padding: 10px;
   text-align: left;
+}
+
+.departmentName a {
+  color: #0c1e66;
+  text-decoration: none;
 }
 
 .departmentName:hover {
@@ -38,9 +44,10 @@
 
 .courseName {
   font-weight: bold;
-  color: #0c1e66;
+  color: #237723;
   padding: 10px;
   text-align: left;
+  font-size: 26px;
 }
 
 .departmentContent {
@@ -62,6 +69,11 @@
   border-radius: 10px;
   margin-top: 10px;
   font-size: 20px;
+}
+
+.courseContainer a {
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .courseContainer:hover {

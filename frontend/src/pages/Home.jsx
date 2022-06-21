@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Sidebar from "../components/homePage/Sidebar";
 import FacultyService from "../utils/FacultyService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,27 +9,35 @@ import styles from "./Home.module.css";
 
 function Home() {
   const { department } = useParams();
+  const { courseId } = useParams();
 
   const [retrievedDepartment, setRetrievedDepartment] = useState(null);
-  const [coursesList, setCoursesList] = useState();
-  const [course, setCourse] = useState();
+  const [coursesList, setCoursesList] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   const retrieve = async (id) => {
-    const response = await FacultyService.getDepartmentById(id);
-    setRetrievedDepartment(response);
-  };
-
-  const getDepartmentCourses = async (id) => {
-    const response = await FacultyService.getDepartmentCourses(id);
-    setCoursesList(response);
+    const departmentResponse = await FacultyService.getDepartmentById(id);
+    setRetrievedDepartment(departmentResponse);
+    const coursesResponse = await FacultyService.getDepartmentCourses(id);
+    setCoursesList(coursesResponse);
   };
 
   useEffect(() => {
     if (department) {
       retrieve(department);
-      getDepartmentCourses(department);
     }
   }, [department]);
+
+  useEffect(() => {
+    // eslint-disable-next-line array-callback-return
+    const temp = coursesList.find((course) => {
+      // eslint-disable-next-line eqeqeq
+      if (course.id == courseId) {
+        return course;
+      }
+    });
+    setSelectedCourse(temp);
+  }, [coursesList, courseId]);
 
   return (
     <Container className={styles.homeContainer}>
@@ -38,7 +46,7 @@ function Home() {
           <Sidebar />
         </Col>
         <Col xs={8}>
-          {department === "0" ? (
+          {!department ? (
             <div className={styles.welcomeMessage}>
               Welcome to askIBU! <br />
               Choose a deparment from the side menu to view courses and
@@ -47,36 +55,40 @@ function Home() {
           ) : (
             <div className={styles.department}>
               <div className={styles.departmentHeader}>
-                <div
-                  className={styles.departmentName}
-                  onClick={() => setCourse(undefined)}
-                >
-                  {retrievedDepartment && retrievedDepartment.name}
+                <div className={styles.departmentName}>
+                  {retrievedDepartment && (
+                    <Link to={`/home/${retrievedDepartment.id}`}>
+                      {retrievedDepartment.name}
+                    </Link>
+                  )}
                 </div>
-                {course && (
+                {courseId && (
                   <>
                     <FontAwesomeIcon
                       className={styles.chevronRight}
                       icon={faArrowRight}
                     />
-                    <div className={styles.courseName}>{course.name}</div>
+                    <div className={styles.courseName}>
+                      {selectedCourse && selectedCourse.name}
+                    </div>
                   </>
                 )}
               </div>
               <div className={styles.departmentContent}>
-                {!course ? (
+                {!courseId ? (
                   <>
                     <div className={styles.headerText}>
                       Please choose a course
                     </div>
                     {coursesList.map((course) => {
                       return (
-                        <div
-                          key={course.id}
-                          onClick={() => setCourse(course)}
-                          className={styles.courseContainer}
-                        >
-                          {course.name}
+                        <div key={course.id} className={styles.courseContainer}>
+                          <Link
+                            to={`/home/${department}/${course.id}`}
+                            className={styles.courseLink}
+                          >
+                            {course.name}
+                          </Link>
                         </div>
                       );
                     })}
