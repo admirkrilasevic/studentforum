@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import API from "../api";
 
 const register = (name, email, password, facultyId, departmentId) =>
