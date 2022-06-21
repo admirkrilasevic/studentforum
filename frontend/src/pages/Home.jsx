@@ -54,6 +54,7 @@ function Home() {
   }, [coursesList, courseId]);
 
   const addQuestion = async () => {
+    setShowForm(false);
     const question = {
       body,
       subject,
@@ -63,6 +64,7 @@ function Home() {
     };
     const response = await QuestionService.postQuestion(question);
     console.log(response);
+    retrieveQuestions(courseId);
   };
 
   return (
