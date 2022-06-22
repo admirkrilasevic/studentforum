@@ -1,0 +1,59 @@
+.accountContainer {
+  margin-top: 40px;
+}
+
+.sectionButtons {
+  display: flex;
+  align-items: flex-start;
+  margin: 0 25%;
+}
+
+.padded {
+  padding: 0px 40px;
+}
+
+.sectionButton {
+  text-decoration: none;
+  border: none;
+  font-size: 18px;
+  padding: 1% 4%;
+  background-color: inherit;
+  color: #000;
+  border: 1px solid #0c1e66;
+}
+
+.sectionButtonActive {
+  text-decoration: none;
+  border: none;
+  font-size: 18px;
+  padding: 1% 4%;
+  background-color: #0c1e66;
+  color: #fff;
+  border: 1px solid #0c1e66;
+}
+
+.sectionButton:hover {
+  background-color: #0c1e66;
+  color: #fff;
+}
+
+.sectionButtonActive:hover {
+  color: #fff;
+}
+
+.logOutButton {
+  background-color: #237723;
+  margin-left: auto;
+  margin-right: 0px;
+  padding: 1% 4%;
+  text-decoration: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.logOutButton:hover {
+  color: #fff;
+  background-color: #0c1e66;
+}

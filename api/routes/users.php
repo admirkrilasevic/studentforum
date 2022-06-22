@@ -180,3 +180,23 @@ Flight::route('POST /forgot', function () {
 Flight::route('POST /reset', function () {
 	Flight::json(Flight::jwt(Flight::userService()->reset(Flight::request()->data->getData())));
 });
+
+/**
+ * @OA\Put(path="/user/change",tags={"login"}, description="Change user password",
+ * @OA\RequestBody(description="Basic user info", required=true,
+ *    @OA\MediaType(
+ *      mediaType="application/json",
+ *      @OA\Schema(
+ *        @OA\Property(property="oldPassword", type="string", required="true", example="userpassword", description="Old password"),
+ *        @OA\Property(property="newPassword", type="string", required="true", example="userpassword1", description="New password")
+ *      )
+ *    )
+ *   ),
+ * @OA\Response(response="200", description="Message that that an email has been sent")
+ * )
+ */
+Flight::route('PUT /user/change', function () {
+	$oldPassword = Flight::request()->data->oldPassword;
+	$newPassword = Flight::request()->data->newPassword;
+	Flight::json(Flight::jwt(Flight::userService()->changePassword(Flight::get("user")["id"], $oldPassword, $newPassword)));
+});

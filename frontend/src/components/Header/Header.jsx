@@ -18,7 +18,7 @@ function Header() {
       </NavLink>
       <span className={styles.title}>askIBU</span>
       <NavLink
-        to={loggedIn ? "/account" : "/login"}
+        to={loggedIn ? "/account/profile" : "/login"}
         className={styles.icons}
         activeStyle={{ color: "#0c1e66" }}
       >

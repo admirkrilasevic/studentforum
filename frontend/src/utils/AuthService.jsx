@@ -31,15 +31,45 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  if (localStorage.getItem("updatedUser")) {
-    return JSON.parse(localStorage.getItem("updatedUser"));
-  }
   return JSON.parse(localStorage.getItem("user"));
+};
+
+const getUser = () => {
+  return API.get(`user/account`).then((response) => {
+    return response.data;
+  });
+};
+
+const updateUser = (name, email, facultyId, department) => {
+  return API.put(`user/account`, {
+    name,
+    email,
+    faculty_id: facultyId,
+    department_id: department,
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => error.response.data);
+};
+
+const changePassword = (oldPassword, newPassword) => {
+  return API.put(`user/change`, {
+    oldPassword,
+    newPassword,
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => error.response.data);
 };
 
 export default {
   register,
   login,
   logout,
+  getUser,
   getCurrentUser,
+  updateUser,
+  changePassword,
 };
