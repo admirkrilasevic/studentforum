@@ -93,6 +93,38 @@ function Question({ question }) {
     }
   };
 
+  const addAnswerSection = () => {
+    return (
+      <>
+        {!showForm && (
+          <div className={styles.addAnswer}>
+            <button onClick={() => handleAddClick()}>Add answer</button>
+          </div>
+        )}
+        {showForm && (
+          <div className={styles.addAnswerPrompt}>
+            <textarea
+              className={styles.answerInput}
+              onChange={(e) => setAnswerBody(e.target.value)}
+              placeholder="Add your answer here"
+            ></textarea>
+            <div className={styles.answerButtons}>
+              <button
+                className={styles.cancel}
+                onClick={() => setShowForm(!showForm)}
+              >
+                Cancel
+              </button>
+              <button className={styles.save} onClick={() => addAnswer()}>
+                Save
+              </button>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  };
+
   return (
     <Container key={question.id} className={styles.questionContainer}>
       <ToastContainer />
@@ -178,34 +210,13 @@ function Question({ question }) {
                 </div>
               );
             })}
-            {!showForm && (
-              <div className={styles.addAnswer}>
-                <button onClick={() => handleAddClick()}>Add answer</button>
-              </div>
-            )}
-            {showForm && (
-              <div className={styles.addAnswerPrompt}>
-                <textarea
-                  className={styles.answerInput}
-                  onChange={(e) => setAnswerBody(e.target.value)}
-                  placeholder="Add your answer here"
-                ></textarea>
-                <div className={styles.answerButtons}>
-                  <button
-                    className={styles.cancel}
-                    onClick={() => setShowForm(!showForm)}
-                  >
-                    Cancel
-                  </button>
-                  <button className={styles.save} onClick={() => addAnswer()}>
-                    Save
-                  </button>
-                </div>
-              </div>
-            )}
+            {addAnswerSection()}
           </div>
         ) : (
-          <div className={styles.noAnswers}>No answers yet</div>
+          <div>
+            <div className={styles.noAnswers}>No answers yet</div>
+            {addAnswerSection()}
+          </div>
         ))}
     </Container>
   );
