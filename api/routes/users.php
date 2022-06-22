@@ -6,7 +6,7 @@
  *   @OA\Server(url="http://localhost/studentforum/api/", description="Development Enviroment"),
  *   @OA\Server(url="https://askibu-server.herokuapp.com/api/", description="Production Enviroment")
  * ),
- * @OA\SecurityScheme(securityScheme="ApiKeyAuth",type="apiKey",in="header",name="Authentication")
+ * @OA\SecurityScheme(securityScheme="ApiKeyAuth",type="apiKey",in="header",name="Authorization")
  */
 
 /**
@@ -122,7 +122,7 @@ Flight::route('PUT /user/account', function () {
  */
 Flight::route('GET /confirm/@token', function ($token) {
 	Flight::jwt(Flight::userService()->confirm($token));
-	header("Location: " . '//' . $_SERVER["SERVER_NAME"] . str_replace("studentforum/api/index.php", "/login", $_SERVER["SCRIPT_NAME"]));
+	header("Location: " . '//' . Config::FRONT_URL() .  "login");
 	exit();
 });
 

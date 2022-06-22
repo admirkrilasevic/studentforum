@@ -1,15 +1,17 @@
-import { faMapPin } from "@fortawesome/free-solid-svg-icons";
+import { faMapPin, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import parseJWT from "../../utils/parseJwt";
 import QuestionService from "../../utils/QuestionService";
 import styles from "./Question.module.css";
 
 function Question({ question }) {
   const [expanded, setExpanded] = useState(false);
   const [answers, setAnswers] = useState([]);
+  const [user, setUser] = useState();
 
   const [showForm, setShowForm] = useState(false);
   const [answerBody, setAnswerBody] = useState("");
@@ -23,10 +25,12 @@ function Question({ question }) {
   };
 
   useEffect(() => {
-    if (question) {
+    const userData = parseJWT(localStorage.getItem("user"));
+    setUser(userData);
+    if (expanded) {
       retrieveAnswers(question.id);
     }
-  }, [question]);
+  }, [expanded]);
 
   const addAnswer = async () => {
     setShowForm(false);
@@ -52,6 +56,40 @@ function Question({ question }) {
       });
     } else {
       setShowForm(!showForm);
+    }
+  };
+
+  const handlePinAnswer = async (data) => {
+    const response = await QuestionService.pinAnswer(data);
+    if (response.status && response.status !== 200) {
+      toast.error(response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      retrieveAnswers(question.id);
+    }
+  };
+
+  const handleRemoveAnswer = async (data) => {
+    const response = await QuestionService.updateAnswer(data);
+    if (response.status && response.status === 400) {
+      toast.error(response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else if (response.id) {
+      retrieveAnswers(question.id);
     }
   };
 
@@ -90,28 +128,52 @@ function Question({ question }) {
               return (
                 <div
                   key={answer.id}
-                  className={
+                  className={`${
                     answer.is_pinned ? styles.answerPinned : styles.answer
-                  }
+                  } ${styles.answerContainer}`}
                 >
-                  <span className={!answer.is_pinned && styles.line}>
-                    {answer.is_pinned ? (
-                      <>
-                        &ensp;
-                        <FontAwesomeIcon icon={faMapPin} />
-                      </>
-                    ) : (
+                  <div>
+                    <span className={styles.line}>
                       <>&ensp;&ensp;</>
-                    )}
-                  </span>
-                  &ensp;
-                  {answer.body}
-                  <div className={styles.answerDetails}>
-                    Posted at &nbsp;
-                    {answer.posted_at}
-                    <br />
-                    By &nbsp;
-                    {answer.name}
+                    </span>
+                    &ensp;
+                    {answer.body}
+                  </div>
+                  <div className={styles.additionalContent}>
+                    <div className={styles.iconContainer}>
+                      {user.id === answer.user_id && (
+                        <FontAwesomeIcon
+                          className={styles.trashIcon}
+                          onClick={() => {
+                            handleRemoveAnswer({
+                              answerId: answer.id,
+                              status: "REMOVED",
+                            });
+                          }}
+                          icon={faTrash}
+                        />
+                      )}
+                      <FontAwesomeIcon
+                        className={`${styles.answerPin} ${
+                          answer.is_pinned && styles.pinActive
+                        }`}
+                        onClick={() => {
+                          handlePinAnswer({
+                            answerId: answer.id,
+                            questionId: question.id,
+                            value: answer.is_pinned ? 0 : 1,
+                          });
+                        }}
+                        icon={faMapPin}
+                      />
+                    </div>
+                    <div className={styles.answerDetails}>
+                      Posted at &nbsp;
+                      {answer.posted_at}
+                      <br />
+                      By &nbsp;
+                      {answer.name}
+                    </div>
                   </div>
                 </div>
               );

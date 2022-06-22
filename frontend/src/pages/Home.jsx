@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "../components/homePage/Sidebar";
 import FacultyService from "../utils/FacultyService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,6 +14,7 @@ import styles from "./Home.module.css";
 function Home() {
   const { department } = useParams();
   const { courseId } = useParams();
+  let navigate = useNavigate();
 
   const [retrievedDepartment, setRetrievedDepartment] = useState(null);
   const [coursesList, setCoursesList] = useState([]);
@@ -173,13 +174,13 @@ function Home() {
                           <div
                             key={course.id}
                             className={styles.courseContainer}
+                            onClick={() => {
+                              navigate(`/home/${department}/${course.id}`);
+                            }}
                           >
-                            <Link
-                              to={`/home/${department}/${course.id}`}
-                              className={styles.courseLink}
-                            >
+                            <div className={styles.courseLink}>
                               {course.name}
-                            </Link>
+                            </div>
                           </div>
                         );
                       })}
