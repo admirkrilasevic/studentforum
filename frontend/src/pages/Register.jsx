@@ -14,7 +14,7 @@ function Register() {
   const [faculties, setFaculties] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [message, setMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState([]);
+  const [errorMessage, setErrorMessage] = useState();
 
   const handleRegister = async () => {
     if (!name || !email || !password || !faculty || !department) {

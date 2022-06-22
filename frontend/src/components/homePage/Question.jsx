@@ -26,7 +26,6 @@ function Question({ question }) {
 
   useEffect(() => {
     const userData = parseJWT(localStorage.getItem("user"));
-    console.log(userData);
     setUser(userData);
     if (expanded) {
       retrieveAnswers(question.id);
