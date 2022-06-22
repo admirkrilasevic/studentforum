@@ -3,6 +3,7 @@ import AuthService from "../../utils/AuthService";
 import FacultyService from "../../utils/FacultyService";
 import styles from "../../pages/Forms.module.css";
 import SelectInput from "../SelectInput/SelectInput";
+import parseJWT from "../../utils/parseJwt";
 
 function Profile() {
   const [name, setName] = useState();
@@ -61,12 +62,14 @@ function Profile() {
 
   const getData = async () => {
     const faculties = await getFaculties();
-    const departments = await getDepartments(1);
+    const deptId = parseJWT(localStorage.getItem("user")).d_id;
+    const departments = await getDepartments(deptId);
     await retrieveUser(faculties, departments);
   };
 
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
