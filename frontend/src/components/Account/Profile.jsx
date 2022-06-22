@@ -4,6 +4,8 @@ import FacultyService from "../../utils/FacultyService";
 import styles from "../../pages/Forms.module.css";
 import SelectInput from "../SelectInput/SelectInput";
 import parseJWT from "../../utils/parseJwt";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Profile() {
   const [name, setName] = useState();
@@ -26,24 +28,49 @@ function Profile() {
   };
 
   const handleUpdateUser = async () => {
-    /*     if (!name || !email || !faculty || !department) {
-        setErrorMessage("Please provide all the required fields.");
-        return;
-      }
-      const response = await AuthService.updateUser(
-        user.id,
-        name,
-        email,
-        faculty.id,
-        department.id
-      );
-      if (response.status && response.status !== 200) {
-        setMessage(undefined);
-        setErrorMessage(response.data.message);
-      } else {
-        setErrorMessage(undefined);
-        setMessage(response.message);
-      } */
+    if (!name || !email || !faculty || !department) {
+      toast("Please fill in all fields", {
+        type: "error",
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    const response = await AuthService.updateUser(
+      name,
+      email,
+      faculty.id,
+      department.id
+    );
+    console.log(response);
+    if (response.status && response.status !== "ACTIVE") {
+      toast(response.data.message, {
+        type: "error",
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast("Profile updated successfully", {
+        type: "success",
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
   const retrieveUser = async (faculties, departments) => {
@@ -74,6 +101,7 @@ function Profile() {
 
   return (
     <div className={styles.formContainer}>
+      <ToastContainer />
       <div className={styles.formTitle}>User Info</div>
       <div className={styles.formSection}>
         <p>Name</p>
