@@ -49,7 +49,7 @@ class AnswerService extends BaseService
 		$question = $this->questionDao->get_questions_by_question_id($user_id, $question_id);
 		if ($question != NULL) {
 			$this->dao->pin_answer($id, $value);
-			return "Answer pinned successfully!";
+			return ["successMessage" => "Answer pinned successfully!"];
 		} else {
 			throw new Exception("Can't pin answers that are not on your question!", 403);
 		}

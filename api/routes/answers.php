@@ -118,7 +118,7 @@ Flight::route("POST /user/answers", function () {
 });
 
 /**
- * @OA\Put(path="/user/answer/{id}",tags={"x-user","answer"},security={{"ApiKeyAuth": {}}},
+ * @OA\Put(path="/user/answers/{id}",tags={"x-user","answer"},security={{"ApiKeyAuth": {}}},
  * @OA\Parameter(type="integer", in="path", name="id", default=1),
  * @OA\RequestBody(description="Answer info", required=true,
  *    @OA\MediaType(
@@ -137,7 +137,7 @@ Flight::route("PUT /user/answers/@id", function ($id) {
 });
 
 /**
- * @OA\Put(path="/user/answer/pin/{id}/{question}/{set}",tags={"x-user","answer"},security={{"ApiKeyAuth": {}}},
+ * @OA\Put(path="/user/answers/pin/{id}/{question}/{set}",tags={"x-user","answer"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(type="integer", in="path", allowReserved=true, name="id", default=1, description="id of a answer"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="question", description="id of the question"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="set", description="value of pin"),

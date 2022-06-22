@@ -6,7 +6,7 @@
  *   @OA\Server(url="http://localhost/studentforum/api/", description="Development Enviroment"),
  *   @OA\Server(url="https://askibu-server.herokuapp.com/api/", description="Production Enviroment")
  * ),
- * @OA\SecurityScheme(securityScheme="ApiKeyAuth",type="apiKey",in="header",name="Authentication")
+ * @OA\SecurityScheme(securityScheme="ApiKeyAuth",type="apiKey",in="header",name="Authorization")
  */
 
 /**

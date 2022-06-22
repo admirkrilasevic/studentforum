@@ -37,10 +37,18 @@ const pinAnswer = ({ answerId, questionId, value }) =>
     .then((response) => response.data)
     .catch((error) => error.response);
 
+const updateAnswer = ({ answerId, status }) =>
+  API.put(`user/answers/${answerId}`, {
+    STATUS: status,
+  })
+    .then((response) => response.data)
+    .catch((error) => error.response);
+
 export default {
   getQuestionsForCourse,
   getAnswersForQuestion,
   postQuestion,
   postAnswer,
   pinAnswer,
+  updateAnswer,
 };

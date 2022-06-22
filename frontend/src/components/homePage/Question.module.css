@@ -199,3 +199,16 @@
 .answerPin:hover {
   cursor: pointer;
 }
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trashIcon {
+  color: #ff4444;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
