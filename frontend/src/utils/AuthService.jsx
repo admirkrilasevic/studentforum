@@ -31,15 +31,19 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  if (localStorage.getItem("updatedUser")) {
-    return JSON.parse(localStorage.getItem("updatedUser"));
-  }
   return JSON.parse(localStorage.getItem("user"));
+};
+
+const getUser = () => {
+  return API.get(`user/account`).then((response) => {
+    return response.data;
+  });
 };
 
 export default {
   register,
   login,
   logout,
+  getUser,
   getCurrentUser,
 };
