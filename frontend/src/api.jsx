@@ -3,7 +3,7 @@ import { ENVIRONMENT } from "./constants";
 
 let API_URL = "";
 if (process.env.REACT_APP_API_URL) {
-  API_URL = `${process.env.REACT_APP_API_URL}/api/`;
+  API_URL = `${process.env.REACT_APP_API_URL}/`;
 } else {
   API_URL = `${ENVIRONMENT.HOST}/api/`;
 }
