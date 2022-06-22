@@ -9,16 +9,18 @@ function Profile() {
   const [email, setEmail] = useState();
   const [faculty, setFaculty] = useState();
   const [department, setDepartment] = useState();
-  let faculties = null;
-  let departments = null;
+  const [faculties, setFaculties] = useState();
+  const [departments, setDepartments] = useState();
 
   const getFaculties = async () => {
     const response = await FacultyService.getFaculties();
+    setFaculties(response);
     return response;
   };
 
-  const getDepartments = async () => {
-    const response = await FacultyService.getDepartments();
+  const getDepartments = async (id) => {
+    const response = await FacultyService.getDepartmentsForFaculty(id);
+    setDepartments(response);
     return response;
   };
 
@@ -58,8 +60,8 @@ function Profile() {
   };
 
   const getData = async () => {
-    faculties = await getFaculties();
-    departments = await getDepartments();
+    const faculties = await getFaculties();
+    const departments = await getDepartments(1);
     await retrieveUser(faculties, departments);
   };
 
@@ -93,7 +95,11 @@ function Profile() {
         <SelectInput
           value={faculty}
           items={faculties}
-          selectItem={setFaculty}
+          selectItem={(item) => {
+            setFaculty(item);
+            setDepartment(undefined);
+            getDepartments(item.id);
+          }}
           hint="Loading..."
         />
       </div>
@@ -103,7 +109,7 @@ function Profile() {
           value={department}
           items={departments}
           selectItem={setDepartment}
-          hint="Loading..."
+          hint="Choose a department"
         />
       </div>
       <button
