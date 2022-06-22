@@ -16,7 +16,7 @@ API.interceptors.request.use(
   (config) => {
     // Do something before request is sent
     const user = JSON.parse(localStorage.getItem("user"));
-    user && (config.headers.Authentication = user.token);
+    user && (config.headers.Authorization = user.token);
     return config;
   },
   (error) =>

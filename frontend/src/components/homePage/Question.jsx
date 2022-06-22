@@ -90,28 +90,31 @@ function Question({ question }) {
               return (
                 <div
                   key={answer.id}
-                  className={
+                  className={`${
                     answer.is_pinned ? styles.answerPinned : styles.answer
-                  }
+                  } ${styles.answerContainer}`}
                 >
-                  <span className={!answer.is_pinned && styles.line}>
-                    {answer.is_pinned ? (
-                      <>
-                        &ensp;
-                        <FontAwesomeIcon icon={faMapPin} />
-                      </>
-                    ) : (
+                  <div>
+                    <span className={styles.line}>
                       <>&ensp;&ensp;</>
-                    )}
-                  </span>
-                  &ensp;
-                  {answer.body}
-                  <div className={styles.answerDetails}>
-                    Posted at &nbsp;
-                    {answer.posted_at}
-                    <br />
-                    By &nbsp;
-                    {answer.name}
+                    </span>
+                    &ensp;
+                    {answer.body}
+                  </div>
+                  <div className={styles.additionalContent}>
+                    <FontAwesomeIcon
+                      className={`${styles.answerPin} ${
+                        answer.is_pinned && styles.pinActive
+                      }`}
+                      icon={faMapPin}
+                    />
+                    <div className={styles.answerDetails}>
+                      Posted at &nbsp;
+                      {answer.posted_at}
+                      <br />
+                      By &nbsp;
+                      {answer.name}
+                    </div>
                   </div>
                 </div>
               );

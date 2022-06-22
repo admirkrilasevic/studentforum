@@ -174,3 +174,28 @@
   font-weight: bold;
   color: #fff;
 }
+
+.answerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.additionalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.answerPin {
+  margin-bottom: 20px;
+}
+
+.pinActive {
+  color: #237723;
+}
+
+.answerPin:hover {
+  cursor: pointer;
+}
