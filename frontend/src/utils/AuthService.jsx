@@ -53,6 +53,17 @@ const updateUser = (name, email, facultyId, department) => {
     .catch((error) => error.response.data);
 };
 
+const changePassword = (oldPassword, newPassword) => {
+  return API.put(`user/change`, {
+    oldPassword,
+    newPassword,
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => error.response.data);
+};
+
 export default {
   register,
   login,
@@ -60,4 +71,5 @@ export default {
   getUser,
   getCurrentUser,
   updateUser,
+  changePassword,
 };

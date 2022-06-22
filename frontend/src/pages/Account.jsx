@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Profile from "../components/Account/Profile";
+import Settings from "../components/Account/Settings";
 import AuthService from "../utils/AuthService";
 import styles from "./Account.module.css";
 
@@ -13,7 +14,7 @@ function Account() {
       case "Profile":
         return <Profile />;
       case "Settings":
-        return null;
+        return <Settings />;
       default:
         return <Profile />;
     }

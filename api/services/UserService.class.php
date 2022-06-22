@@ -103,4 +103,15 @@ class UserService extends BaseService
 
     return $user;
   }
+
+  public function changePassword($user_id, $oldPassword, $newPassword)
+	{
+		$db_user = $this->dao->get_by_id($user_id);
+		if (!isset($db_user["id"])) throw new Exception("User doesn't exist", 400);
+
+		if (md5($oldPassword) != $db_user["password"]) throw new Exception("Invalid password", 400);
+
+		$this->dao->update($db_user["id"], ["password" => md5($newPassword)]);
+		return $db_user;
+	}
 }
