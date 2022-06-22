@@ -25,7 +25,7 @@ function App() {
           <Route path="/home/:department/:courseId" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/account" element={<Account />} />
+          <Route path="/account/:section" element={<Account />} />
         </Routes>
         <Footer />
       </div>
