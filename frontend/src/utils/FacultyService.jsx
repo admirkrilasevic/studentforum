@@ -7,12 +7,6 @@ const getFaculties = () => {
   });
 };
 
-const getDepartments = () => {
-  return API.get(`user/departments`).then((response) => {
-    return response.data;
-  });
-};
-
 const getDepartmentsForFaculty = (facultyId) => {
   return API.get(`departments/${facultyId}`).then((response) => {
     return response.data;
@@ -36,5 +30,4 @@ export default {
   getDepartmentsForFaculty,
   getDepartmentById,
   getDepartmentCourses,
-  getDepartments,
 };
