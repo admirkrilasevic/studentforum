@@ -73,22 +73,14 @@ Flight::route("GET /user/questions/@id", function ($id) {
 
 /**
  * @OA\Get(path="/questions/@id",tags={"question"},
- *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="order", default="-id", description="Sorting for return elements. -column_name ascending order by column_name, +column_name descending order by column_name"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="path", name="course_id", description="id of course"),
- *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="limit", description="limit for pagination),
- *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="offset", description="offset for pagination"),
- *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="status", default="ACTIVE", description="Status of the question"),
  *     @OA\Response(response="200", description="Get questions")
  * )
  */
 Flight::route("GET /questions/@id", function ($id) {
-	$limit = Flight::query('limit', 25);
-	$offset = Flight::query('offset', 0);
-	$order = urldecode(Flight::query('order', '-id'));
-	$status = Flight::query('status', 'ACTIVE');
-	$total = Flight::questionService()->get_questions_for_course($limit, $offset, $order, $id, $status, TRUE);
+	$total = Flight::questionService()->get_questions_for_course(100, 0, '+id', $id, 'ACTIVE', TRUE);
 	header('total-records: ' . $total['total']);
-	Flight::json(Flight::questionService()->get_questions_for_course($limit, $offset, $order, $id, $status));
+	Flight::json(Flight::questionService()->get_questions_for_course(100, 0, '+id', $id, 'ACTIVE'));
 });
 
 /**
