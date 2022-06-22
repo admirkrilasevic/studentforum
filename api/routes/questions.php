@@ -78,8 +78,6 @@ Flight::route("GET /user/questions/@id", function ($id) {
  * )
  */
 Flight::route("GET /questions/@id", function ($id) {
-	$total = Flight::questionService()->get_questions_for_course(100, 0, '+id', $id, 'ACTIVE', TRUE);
-	header('total-records: ' . $total['total']);
 	Flight::json(Flight::questionService()->get_questions_for_course(100, 0, '+id', $id, 'ACTIVE'));
 });
 
