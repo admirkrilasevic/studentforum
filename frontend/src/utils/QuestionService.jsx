@@ -13,7 +13,7 @@ const getAnswersForQuestion = (questionId) => {
   });
 };
 
-const postQuestion = async (question) =>
+const postQuestion = (question) =>
   API.post("user/questions", {
     subject: question.subject,
     body: question.body,
@@ -24,11 +24,16 @@ const postQuestion = async (question) =>
     .then((response) => response.data)
     .catch((error) => error.response);
 
-const postAnswer = async (data) =>
+const postAnswer = (data) =>
   API.post("user/answers", {
     body: data.answerBody,
     question_id: data.question_id,
   })
+    .then((response) => response.data)
+    .catch((error) => error.response);
+
+const pinAnswer = ({ answerId, questionId, value }) =>
+  API.put(`user/answers/pin/${answerId}/${questionId}/${value}`)
     .then((response) => response.data)
     .catch((error) => error.response);
 
@@ -37,4 +42,5 @@ export default {
   getAnswersForQuestion,
   postQuestion,
   postAnswer,
+  pinAnswer,
 };

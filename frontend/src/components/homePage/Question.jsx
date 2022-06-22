@@ -55,6 +55,23 @@ function Question({ question }) {
     }
   };
 
+  const handlePinAnswer = async (data) => {
+    const response = await QuestionService.pinAnswer(data);
+    if (response.status && response.status !== 200) {
+      toast.error(response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      retrieveAnswers(question.id);
+    }
+  };
+
   return (
     <Container key={question.id} className={styles.questionContainer}>
       <ToastContainer />
@@ -106,6 +123,13 @@ function Question({ question }) {
                       className={`${styles.answerPin} ${
                         answer.is_pinned && styles.pinActive
                       }`}
+                      onClick={() => {
+                        handlePinAnswer({
+                          answerId: answer.id,
+                          questionId: question.id,
+                          value: answer.is_pinned ? 0 : 1,
+                        });
+                      }}
                       icon={faMapPin}
                     />
                     <div className={styles.answerDetails}>
