@@ -52,6 +52,7 @@ function Account() {
           Settings
         </Link>
         <button
+          id="logout-button"
           className={styles.logOutButton}
           onClick={() => AuthService.logout()}
         >

@@ -27,6 +27,7 @@ function Login() {
       <div className={styles.formSection}>
         <p>Email</p>
         <input
+          id="email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -36,6 +37,7 @@ function Login() {
       <div className={styles.formSection}>
         <p>Password</p>
         <input
+          id="password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -43,6 +45,7 @@ function Login() {
         />
       </div>
       <button
+        id="submit-button"
         type="submit"
         className={styles.formSubmitButton}
         onClick={() => handleLogin()}
@@ -56,7 +59,9 @@ function Login() {
         </Link>
       </div>
       {errorMessage && (
-        <div className={styles.errorMessage}>{errorMessage}</div>
+        <div id="error-message" className={styles.errorMessage}>
+          {errorMessage}
+        </div>
       )}
     </div>
   );

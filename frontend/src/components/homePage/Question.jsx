@@ -166,8 +166,10 @@ function Question({ question, refreshQuestions }) {
         }
       >
         <Col className={styles.questionSubject}>
-          <strong>{question.subject}</strong>
-          <div className={styles.questionBody}>{question.body}</div>
+          <strong className="questionSubject">{question.subject}</strong>
+          <div className={`${styles.questionBody} questionBody`}>
+            {question.body}
+          </div>
         </Col>
         <Col className={styles.questionDetails}>
           Posted at &nbsp;
