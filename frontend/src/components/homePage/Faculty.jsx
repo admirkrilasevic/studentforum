@@ -2,7 +2,9 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import AuthService from "../../utils/AuthService";
 import FacultyService from "../../utils/FacultyService";
+import parseJWT from "../../utils/parseJwt";
 import styles from "./Sidebar.module.css";
 
 function Faculty({ faculty }) {
@@ -41,6 +43,15 @@ function Faculty({ faculty }) {
     }
   };
 
+  const isAdmin = () => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      const parsedUser = parseJWT(user.token);
+      return parsedUser.r === "ADMIN";
+    }
+    return false;
+  };
+
   return (
     <div>
       <div
@@ -48,13 +59,15 @@ function Faculty({ faculty }) {
         onClick={() => toggleDepartments(faculty.id)}
       >
         {faculty.name}
-        <FontAwesomeIcon
-          className={styles.trashIcon}
-          onClick={() => {
-            handleRemoveFaculty(faculty.id);
-          }}
-          icon={faTrash}
-        />
+        {isAdmin() && (
+          <FontAwesomeIcon
+            className={styles.trashIcon}
+            onClick={() => {
+              handleRemoveFaculty(faculty.id);
+            }}
+            icon={faTrash}
+          />
+        )}
       </div>
       {departments && departments.length > 0 && (
         <div className={styles.departments}>
@@ -66,13 +79,15 @@ function Faculty({ faculty }) {
                 className={styles.department}
               >
                 {department.name}
-                <FontAwesomeIcon
-                  className={styles.trashIcon}
-                  onClick={() => {
-                    handleRemoveDepartment(department.id);
-                  }}
-                  icon={faTrash}
-                />
+                {isAdmin() && (
+                  <FontAwesomeIcon
+                    className={styles.trashIcon}
+                    onClick={() => {
+                      handleRemoveDepartment(department.id);
+                    }}
+                    icon={faTrash}
+                  />
+                )}
               </Link>
             );
           })}

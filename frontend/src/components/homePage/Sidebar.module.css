@@ -5,7 +5,7 @@
 
 .faculty {
   text-align: left;
-  padding: 5% 8%;
+  padding: 10px 30px;
   color: #000;
 }
 
@@ -32,10 +32,13 @@
 }
 
 .addFaculty {
+  border-top: 1px solid #000;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
+  margin-bottom: 100px;
 }
 
 .addFaculty button {
