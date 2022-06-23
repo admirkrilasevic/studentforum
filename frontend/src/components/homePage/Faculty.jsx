@@ -79,12 +79,10 @@ function Faculty({ faculty }) {
         <div className={styles.departments}>
           {departments.map((department) => {
             return (
-              <Link
-                key={department.id}
-                to={`/home/${department.id}`}
-                className={styles.department}
-              >
-                {department.name}
+              <span className={styles.department}>
+                <Link key={department.id} to={`/home/${department.id}`}>
+                  {department.name}
+                </Link>
                 {isAdmin() && (
                   <FontAwesomeIcon
                     className={styles.trashIcon}
@@ -94,7 +92,7 @@ function Faculty({ faculty }) {
                     icon={faTrash}
                   />
                 )}
-              </Link>
+              </span>
             );
           })}
           {isAdmin() && (
