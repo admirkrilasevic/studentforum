@@ -51,3 +51,9 @@
   background-color: #237723;
   cursor: pointer;
 }
+
+.trashIcon {
+  color: #ff4444;
+  cursor: pointer;
+  padding-left: 10px;
+}

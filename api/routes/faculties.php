@@ -35,3 +35,13 @@ Flight::route('POST /admin/faculties', function () {
     $data = Flight::request()->data->getData();
     Flight::json(Flight::facultyService()->add($data));
 });
+
+/**
+ * @OA\Put(path="/admin/faculties/{id}",tags={"x-admin","faculty"},security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(type="integer", in="path", allowReserved=true, name="id", default=1, description="id of a faculty"),
+ *     @OA\Response(response="200", description="Remove a faculty")
+ * )
+ */
+Flight::route("PUT /admin/faculties/@id", function ($id) {
+    Flight::json(Flight::facultyService()->remove_faculty($id));
+});

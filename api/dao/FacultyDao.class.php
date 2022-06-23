@@ -14,7 +14,7 @@ class FacultyDao extends BaseDao
     {
         list($order_column, $order_direction) = self::parse_order($order);
         $params = [];
-        $query = "SELECT * FROM faculties WHERE 1=1";
+        $query = "SELECT * FROM faculties WHERE status = 'ACTIVE'";
 
         if (isset($search)) {
             $query .= " AND LOWER(name) LIKE CONCAT('%', :search, '%')";
@@ -22,5 +22,13 @@ class FacultyDao extends BaseDao
         }
         $query .= " ORDER BY ${order_column} ${order_direction} LIMIT ${limit} OFFSET ${offset}";
         return $this->query($query, $params);
+    }
+
+    public function remove_faculty($id)
+    {
+        $entity = [
+            "status" => "REMOVED"
+        ];
+        return $this->update($id, $entity);
     }
 }

@@ -1,3 +1,5 @@
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import FacultyService from "../../utils/FacultyService";
@@ -19,6 +21,16 @@ function Faculty({ faculty }) {
     }
   };
 
+  const handleRemoveFaculty = (id) => {
+    const confirm = window.confirm(
+      "Are you sure you want to delete this faculty?"
+    );
+    if (confirm) {
+      FacultyService.removeFaculty(id);
+      window.location.reload();
+    }
+  };
+
   return (
     <div>
       <div
@@ -26,6 +38,13 @@ function Faculty({ faculty }) {
         onClick={() => toggleDepartments(faculty.id)}
       >
         {faculty.name}
+        <FontAwesomeIcon
+          className={styles.trashIcon}
+          onClick={() => {
+            handleRemoveFaculty(faculty.id);
+          }}
+          icon={faTrash}
+        />
       </div>
       {departments && departments.length > 0 && (
         <div className={styles.departments}>
