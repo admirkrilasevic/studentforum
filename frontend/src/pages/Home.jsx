@@ -10,6 +10,8 @@ import Question from "../components/homePage/Question";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./Home.module.css";
+import AuthService from "../utils/AuthService";
+import parseJWT from "../utils/parseJwt";
 
 function Home() {
   const { department } = useParams();
@@ -21,10 +23,13 @@ function Home() {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [questionsList, setQuestionsList] = useState([]);
 
-  const [showForm, setShowForm] = useState(false);
+  const [showQuestionForm, setShowQuestionForm] = useState(false);
+  const [showCourseForm, setShowCourseForm] = useState(false);
 
   const [body, setBody] = useState("");
   const [subject, setSubject] = useState("");
+
+  const [name, setName] = useState("");
 
   const retrieve = async (id) => {
     const departmentResponse = await FacultyService.getDepartmentById(id);
@@ -57,7 +62,7 @@ function Home() {
   }, [coursesList, courseId]);
 
   const addQuestion = async () => {
-    setShowForm(false);
+    setShowQuestionForm(false);
     const question = {
       body,
       subject,
@@ -82,8 +87,37 @@ function Home() {
         progress: undefined,
       });
     } else {
-      setShowForm(!showForm);
+      setShowQuestionForm(!showQuestionForm);
     }
+  };
+
+  const handleAddCourse = () => {
+    if (!localStorage.getItem("user")) {
+      toast.error("You must be logged in to add a question", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      setShowCourseForm(!showCourseForm);
+    }
+  };
+
+  const isAdmin = () => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      const parsedUser = parseJWT(user.token);
+      return parsedUser.r === "ADMIN";
+    }
+    return false;
+  };
+
+  const addCourse = () => {
+    setShowCourseForm(false);
   };
 
   return (
@@ -109,6 +143,15 @@ function Home() {
                     </Link>
                   )}
                 </div>
+                {!courseId && (
+                  <div className={styles.addCourse}>
+                    {isAdmin() && (
+                      <button onClick={() => handleAddCourse()}>
+                        Add course
+                      </button>
+                    )}
+                  </div>
+                )}
                 {courseId && (
                   <>
                     <FontAwesomeIcon
@@ -120,17 +163,17 @@ function Home() {
                     </div>
                   </>
                 )}
-                <div className={styles.addQuestion}>
-                  {courseId && (
+                {courseId && (
+                  <div className={styles.addQuestion}>
                     <button onClick={() => handleAddClick()}>
                       Add question
                     </button>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
               <div className={styles.departmentContent}>
                 <ToastContainer />
-                {showForm && (
+                {showQuestionForm && (
                   <div className={styles.formContainer}>
                     <h3 className={styles.formTitle}>Add a Question</h3>
                     <div className={styles.formSection}>
@@ -157,7 +200,32 @@ function Home() {
                     </button>
                     <span
                       className={styles.hide}
-                      onClick={() => setShowForm(!showForm)}
+                      onClick={() => setShowQuestionForm(!showQuestionForm)}
+                    >
+                      Hide
+                    </span>
+                  </div>
+                )}
+                {showCourseForm && (
+                  <div className={styles.formContainer}>
+                    <h3 className={styles.formTitle}>Add a Course</h3>
+                    <div className={styles.formSection}>
+                      <span>Name</span>
+                      <input
+                        type="text"
+                        className={styles.formInput}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    </div>
+                    <button
+                      className={styles.formSubmitButton}
+                      onClick={() => addCourse()}
+                    >
+                      Add
+                    </button>
+                    <span
+                      className={styles.hide}
+                      onClick={() => setShowCourseForm(!showCourseForm)}
                     >
                       Hide
                     </span>
