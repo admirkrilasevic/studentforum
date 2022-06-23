@@ -27,9 +27,18 @@ const getDepartmentCourses = (departmentId) => {
   });
 };
 
+const addFaculty = (name) =>
+  myApi
+    .post("admin/faculties", {
+      name,
+    })
+    .then((response) => response.data)
+    .catch((error) => error.response);
+
 export default {
   getFaculties,
   getDepartmentsForFaculty,
   getDepartmentById,
   getDepartmentCourses,
+  addFaculty,
 };

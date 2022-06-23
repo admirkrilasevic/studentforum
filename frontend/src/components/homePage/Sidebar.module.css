@@ -5,7 +5,7 @@
 
 .faculty {
   text-align: left;
-  padding: 10px 30px;
+  padding: 5% 8%;
   color: #000;
 }
 
@@ -28,5 +28,26 @@
 
 .department:hover {
   color: #237723;
+  cursor: pointer;
+}
+
+.addFaculty {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.addFaculty button {
+  background-color: #0c1e66;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.addFaculty button:hover {
+  background-color: #237723;
   cursor: pointer;
 }
