@@ -149,9 +149,9 @@ function Question({ question }) {
           <br />
           <span
             onClick={() => setExpanded(!expanded)}
-            className={styles.viewThread}
+            className={styles.viewAnswers}
           >
-            {expanded ? "Hide Thread" : "View Thread"}
+            {expanded ? "Hide Answers" : "View Answers"}
           </span>
         </Col>
       </Row>

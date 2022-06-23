@@ -59,7 +59,7 @@
   border-left: none;
 }
 
-.viewThread {
+.viewAnswers {
   font-style: normal;
   color: #237723;
   font-size: 16px;
@@ -69,7 +69,7 @@
   padding: 10px;
 }
 
-.viewThread:hover {
+.viewAnswers:hover {
   background-color: #237723;
   color: #ffffff;
   cursor: pointer;
