@@ -42,7 +42,7 @@ function Settings() {
   return (
     <div className={styles.formContainer}>
       <ToastContainer />
-      <div className={styles.formTitle}>Login</div>
+      <div className={styles.formTitle}>Change Password</div>
       <div className={styles.formSection}>
         <p>Current password</p>
         <input

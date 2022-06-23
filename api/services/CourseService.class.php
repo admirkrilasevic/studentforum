@@ -15,4 +15,9 @@ class CourseService extends BaseService
 	{
 		return $this->dao->get_courses($search, $order, $department_id);
 	}
+
+	public function remove_course($id)
+	{
+		return  $this->dao->remove_course($id);
+	}
 }

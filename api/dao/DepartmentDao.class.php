@@ -16,7 +16,8 @@ class DepartmentDao extends BaseDao
     list($order_column, $order_direction) = self::parse_order($order);
     $query = "SELECT *
                 FROM departments
-                WHERE faculty_id = :faculty_id ";
+                WHERE faculty_id = :faculty_id 
+                AND status = 'ACTIVE'";
     if (isset($search)) {
       $query .= "AND LOWER(name) LIKE CONCAT('%', :search, '%')";
       $params['search'] = strtolower($search);
@@ -30,6 +31,14 @@ class DepartmentDao extends BaseDao
 
   public function get_deparment_and_faculty($id)
   {
-    return $this->query_unique("SELECT departments.name, faculties.name AS faculty FROM departments JOIN faculties ON departments.faculty_id=faculties.id WHERE departments.id = :id", ["id" => $id]);
+    return $this->query_unique("SELECT departments.name, faculties.name AS faculty FROM departments JOIN faculties ON departments.faculty_id=faculties.id WHERE departments.id = :id AND status = 'ACTIVE'", ["id" => $id]);
+  }
+
+  public function remove_department($id)
+  {
+    $entity = [
+      "status" => "REMOVED"
+    ];
+    return $this->update($id, $entity);
   }
 }

@@ -13,7 +13,7 @@ class CourseDao extends BaseDao
 	{
 		list($order_column, $order_direction) = self::parse_order($order);
 		$params = [];
-		$query = "SELECT * FROM courses WHERE 1=1";
+		$query = "SELECT * FROM courses WHERE status='ACTIVE'";
 
 		if (isset($department_id)) {
 			$query .= " AND department_id = :department_id";
@@ -25,5 +25,13 @@ class CourseDao extends BaseDao
 		}
 		$query .= " ORDER BY ${order_column} ${order_direction}";
 		return $this->query($query, $params);
+	}
+
+	public function remove_course($id)
+	{
+		$entity = [
+			"status" => "REMOVED"
+		];
+		return $this->update($id, $entity);
 	}
 }

@@ -87,3 +87,13 @@ Flight::route('PUT /admin/departments/@id', function ($id) {
     $data = Flight::request()->data->getData();
     Flight::json(Flight::departmentService()->update($id, $data));
 });
+
+/**
+ * @OA\Put(path="/admin/departments/remove/{id}",tags={"x-admin","department"},security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(type="integer", in="path", allowReserved=true, name="id", default=1, description="id of a department"),
+ *     @OA\Response(response="200", description="Remove a department")
+ * )
+ */
+Flight::route("PUT /admin/departments/remove/@id", function ($id) {
+    Flight::json(Flight::departmentService()->remove_department($id));
+});

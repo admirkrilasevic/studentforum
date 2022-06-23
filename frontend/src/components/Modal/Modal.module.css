@@ -1,0 +1,44 @@
+.modalContainer {
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.modalBackground {
+  width: 100vw;
+  height: 100vh;
+  z-index: 101;
+  opacity: 0.4;
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.closeIcon {
+  font-size: 25px;
+  color: black;
+  font-weight: bold;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+}
+
+.modalContent {
+  width: 50%;
+  max-height: 60vh;
+  z-index: 102;
+  overflow-y: auto;
+  background-color: white;
+  position: fixed;
+  border-radius: 10px;
+  top: 25%;
+  left: 25%;
+  padding: 30px;
+  display: block;
+  box-sizing: border-box;
+}

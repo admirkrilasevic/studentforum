@@ -4,12 +4,16 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "../components/homePage/Sidebar";
 import FacultyService from "../utils/FacultyService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faTrash } from "@fortawesome/free-solid-svg-icons";
 import QuestionService from "../utils/QuestionService";
 import Question from "../components/homePage/Question";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./Home.module.css";
+import formStyles from "./Forms.module.css";
+import AuthService from "../utils/AuthService";
+import parseJWT from "../utils/parseJwt";
+import Modal from "../components/Modal/Modal";
 
 function Home() {
   const { department } = useParams();
@@ -21,10 +25,13 @@ function Home() {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [questionsList, setQuestionsList] = useState([]);
 
-  const [showForm, setShowForm] = useState(false);
+  const [showQuestionForm, setShowQuestionForm] = useState(false);
+  const [showCourseForm, setShowCourseForm] = useState(false);
 
   const [body, setBody] = useState("");
   const [subject, setSubject] = useState("");
+
+  const [name, setName] = useState("");
 
   const retrieve = async (id) => {
     const departmentResponse = await FacultyService.getDepartmentById(id);
@@ -57,7 +64,7 @@ function Home() {
   }, [coursesList, courseId]);
 
   const addQuestion = async () => {
-    setShowForm(false);
+    setShowQuestionForm(false);
     const question = {
       body,
       subject,
@@ -82,7 +89,44 @@ function Home() {
         progress: undefined,
       });
     } else {
-      setShowForm(!showForm);
+      setShowQuestionForm(!showQuestionForm);
+    }
+  };
+
+  const handleAddCourse = async () => {
+    if (!localStorage.getItem("user")) {
+      toast.error("You must be logged in to add a question", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      setShowCourseForm(false);
+      const response = await FacultyService.addCourse(name, department);
+      setCoursesList([...coursesList, response]);
+    }
+  };
+
+  const isAdmin = () => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      const parsedUser = parseJWT(user.token);
+      return parsedUser.r === "ADMIN";
+    }
+    return false;
+  };
+
+  const handleRemoveCourse = async (id) => {
+    const confirm = window.confirm(
+      "Are you sure you want to delete this course?"
+    );
+    if (confirm) {
+      await FacultyService.removeCourse(id);
+      window.location.reload();
     }
   };
 
@@ -109,6 +153,15 @@ function Home() {
                     </Link>
                   )}
                 </div>
+                {!courseId && (
+                  <div className={styles.addCourse}>
+                    {isAdmin() && (
+                      <button onClick={() => setShowCourseForm(true)}>
+                        Add course
+                      </button>
+                    )}
+                  </div>
+                )}
                 {courseId && (
                   <>
                     <FontAwesomeIcon
@@ -120,17 +173,17 @@ function Home() {
                     </div>
                   </>
                 )}
-                <div className={styles.addQuestion}>
-                  {courseId && (
+                {courseId && (
+                  <div className={styles.addQuestion}>
                     <button onClick={() => handleAddClick()}>
                       Add question
                     </button>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
               <div className={styles.departmentContent}>
                 <ToastContainer />
-                {showForm && (
+                {showQuestionForm && (
                   <div className={styles.formContainer}>
                     <h3 className={styles.formTitle}>Add a Question</h3>
                     <div className={styles.formSection}>
@@ -157,7 +210,7 @@ function Home() {
                     </button>
                     <span
                       className={styles.hide}
-                      onClick={() => setShowForm(!showForm)}
+                      onClick={() => setShowQuestionForm(!showQuestionForm)}
                     >
                       Hide
                     </span>
@@ -181,6 +234,18 @@ function Home() {
                             <div className={styles.courseLink}>
                               {course.name}
                             </div>
+                            {isAdmin() && (
+                              <div className={styles.removeCourseContainer}>
+                                <FontAwesomeIcon
+                                  className={styles.trashIcon}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleRemoveCourse(course.id);
+                                  }}
+                                  icon={faTrash}
+                                />
+                              </div>
+                            )}
                           </div>
                         );
                       })}
@@ -206,6 +271,26 @@ function Home() {
           )}
         </Col>
       </Row>
+      <Modal close={() => setShowCourseForm(false)} isOpen={showCourseForm}>
+        <div className={formStyles.formTitle}>Add Course</div>
+        <div className={styles.courseFormSection}>
+          <p>Course</p>
+          <input
+            type="text"
+            value={name}
+            placeholder="Enter a course"
+            onChange={(e) => setName(e.target.value)}
+            className={styles.courseInput}
+          />
+        </div>
+        <button
+          type="submit"
+          className={formStyles.formSubmitButton}
+          onClick={() => handleAddCourse()}
+        >
+          Add
+        </button>
+      </Modal>
     </Container>
   );
 }

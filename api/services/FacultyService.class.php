@@ -15,4 +15,9 @@ class FacultyService extends BaseService
     {
         return $this->dao->get_faculties($offset, $limit, $search, $order);
     }
+
+    public function remove_faculty($id)
+    {
+        return  $this->dao->remove_faculty($id);
+    }
 }
