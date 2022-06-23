@@ -10,8 +10,10 @@ import Question from "../components/homePage/Question";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./Home.module.css";
+import formStyles from "./Forms.module.css";
 import AuthService from "../utils/AuthService";
 import parseJWT from "../utils/parseJwt";
+import Modal from "../components/Modal/Modal";
 
 function Home() {
   const { department } = useParams();
@@ -91,7 +93,7 @@ function Home() {
     }
   };
 
-  const handleAddCourse = () => {
+  const handleAddCourse = async () => {
     if (!localStorage.getItem("user")) {
       toast.error("You must be logged in to add a question", {
         position: "top-right",
@@ -103,7 +105,9 @@ function Home() {
         progress: undefined,
       });
     } else {
-      setShowCourseForm(!showCourseForm);
+      setShowCourseForm(false);
+      const response = await FacultyService.addCourse(name, department);
+      setCoursesList([...coursesList, response]);
     }
   };
 
@@ -114,10 +118,6 @@ function Home() {
       return parsedUser.r === "ADMIN";
     }
     return false;
-  };
-
-  const addCourse = () => {
-    setShowCourseForm(false);
   };
 
   return (
@@ -146,7 +146,7 @@ function Home() {
                 {!courseId && (
                   <div className={styles.addCourse}>
                     {isAdmin() && (
-                      <button onClick={() => handleAddCourse()}>
+                      <button onClick={() => setShowCourseForm(true)}>
                         Add course
                       </button>
                     )}
@@ -206,31 +206,6 @@ function Home() {
                     </span>
                   </div>
                 )}
-                {showCourseForm && (
-                  <div className={styles.formContainer}>
-                    <h3 className={styles.formTitle}>Add a Course</h3>
-                    <div className={styles.formSection}>
-                      <span>Name</span>
-                      <input
-                        type="text"
-                        className={styles.formInput}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </div>
-                    <button
-                      className={styles.formSubmitButton}
-                      onClick={() => addCourse()}
-                    >
-                      Add
-                    </button>
-                    <span
-                      className={styles.hide}
-                      onClick={() => setShowCourseForm(!showCourseForm)}
-                    >
-                      Hide
-                    </span>
-                  </div>
-                )}
                 {!courseId ? (
                   coursesList && coursesList.length > 0 ? (
                     <>
@@ -274,6 +249,26 @@ function Home() {
           )}
         </Col>
       </Row>
+      <Modal close={() => setShowCourseForm(false)} isOpen={showCourseForm}>
+        <div className={formStyles.formTitle}>Add Course</div>
+        <div className={styles.courseFormSection}>
+          <p>Course</p>
+          <input
+            type="text"
+            value={name}
+            placeholder="Enter a course"
+            onChange={(e) => setName(e.target.value)}
+            className={styles.courseInput}
+          />
+        </div>
+        <button
+          type="submit"
+          className={formStyles.formSubmitButton}
+          onClick={() => handleAddCourse()}
+        >
+          Add
+        </button>
+      </Modal>
     </Container>
   );
 }

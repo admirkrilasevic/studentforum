@@ -60,11 +60,11 @@ const removeDepartment = (departmentId) =>
     .then((response) => response.data)
     .catch((error) => error.response);
 
-const addCourse = (name, courseId) =>
+const addCourse = (name, departmentId) =>
   myApi
     .post("admin/courses", {
       name,
-      courseId: courseId,
+      department_id: departmentId,
     })
     .then((response) => response.data)
     .catch((error) => error.response);

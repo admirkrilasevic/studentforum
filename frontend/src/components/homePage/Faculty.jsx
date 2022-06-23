@@ -12,9 +12,7 @@ import formStyles from "../../pages/Forms.module.css";
 function Faculty({ faculty }) {
   const [departments, setDepartments] = useState([]);
   const [name, setName] = useState("");
-  const [courseName, setCourseName] = useState("");
   const [facultyModal, setFacultyModal] = useState(false);
-  const [courseModal, setCourseModal] = useState(false);
 
   const retrieve = async (id) => {
     const response = await FacultyService.getDepartmentsForFaculty(id);
@@ -54,13 +52,6 @@ function Faculty({ faculty }) {
     setName("");
     const response = await FacultyService.addDepartment(name, faculty.id);
     setDepartments([...departments, response]);
-  };
-
-  const handleAddCourse = async () => {
-    setCourseModal(false);
-    setCourseName("");
-    // const response = await FacultyService.addDepartment(name, faculty.id);
-    // setDepartments([...departments, response]);
   };
 
   const isAdmin = () => {
@@ -108,23 +99,13 @@ function Faculty({ faculty }) {
                   {department.name}
                 </Link>
                 {isAdmin() && (
-                  <>
-                    <FontAwesomeIcon
-                      className={styles.trashIcon}
-                      onClick={() => {
-                        handleRemoveDepartment(department.id);
-                      }}
-                      icon={faTrash}
-                    />
-                    <FontAwesomeIcon
-                      className={styles.addIcon}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCourseModal(true);
-                      }}
-                      icon={faCirclePlus}
-                    />
-                  </>
+                  <FontAwesomeIcon
+                    className={styles.trashIcon}
+                    onClick={() => {
+                      handleRemoveDepartment(department.id);
+                    }}
+                    icon={faTrash}
+                  />
                 )}
               </span>
             );
@@ -147,26 +128,6 @@ function Faculty({ faculty }) {
           type="submit"
           className={formStyles.formSubmitButton}
           onClick={() => handleAddDepartment()}
-        >
-          Add
-        </button>
-      </Modal>
-      <Modal close={() => setCourseModal(false)} isOpen={courseModal}>
-        <div className={formStyles.formTitle}>Add Course</div>
-        <div className={formStyles.departmentFormSection}>
-          <p>Course</p>
-          <input
-            type="text"
-            value={courseName}
-            placeholder="Enter a department"
-            onChange={(e) => setCourseName(e.target.value)}
-            className={styles.departmentInput}
-          />
-        </div>
-        <button
-          type="submit"
-          className={formStyles.formSubmitButton}
-          onClick={() => handleAddCourse()}
         >
           Add
         </button>

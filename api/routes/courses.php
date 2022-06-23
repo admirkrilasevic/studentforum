@@ -10,7 +10,7 @@
  */
 Flight::route("GET /courses/@id", function ($id) {
 	$search = Flight::query('search');
-	$order = urldecode(Flight::query('order', '-semester_id'));
+	$order = urldecode(Flight::query('order', '-id'));
 	Flight::json(Flight::courseService()->get_courses($search, $order, $id));
 });
 
