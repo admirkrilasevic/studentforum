@@ -18,7 +18,7 @@ class DepartmentService extends BaseService
     {
         $faculty = $this->facultyDao->get_by_id($department['faculty_id']);
         if ($faculty != null) {
-            parent::add([
+            $department = parent::add([
                 "name" => $department['name'],
                 "faculty_id" => $faculty['id'],
                 "created_at" => date(Config::DATE_FORMAT)
