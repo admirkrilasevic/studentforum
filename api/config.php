@@ -54,7 +54,7 @@ class Config
 
 	public static function FRONT_URL()
 	{
-		return Config::get_env("FRONT_URL", "//localhost:3000");
+		return Config::get_env("FRONT_URL", "http://localhost:3000/");
 	}
 
 	const JWT_TOKEN_TIME = 604800;

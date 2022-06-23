@@ -122,7 +122,7 @@ Flight::route('PUT /user/account', function () {
  */
 Flight::route('GET /confirm/@token', function ($token) {
 	Flight::jwt(Flight::userService()->confirm($token));
-	header("Location: " . '//' . Config::FRONT_URL() .  "login");
+	header("Location: " . Config::FRONT_URL() .  "login");
 	exit();
 });
 
