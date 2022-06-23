@@ -13,3 +13,32 @@ Flight::route("GET /courses/@id", function ($id) {
 	$order = urldecode(Flight::query('order', '-semester_id'));
 	Flight::json(Flight::courseService()->get_courses($search, $order, $id));
 });
+
+/**
+ * @OA\Post(path="/admin/courses",tags={"x-admin","courses"},security={{"ApiKeyAuth": {}}},
+ * @OA\RequestBody(description="Course info", required=true,
+ *    @OA\MediaType(
+ *      mediaType="application/json",
+ *      @OA\Schema(
+ *        @OA\Property(property="name", type="string", example="Department name", desctiption="Name of the course"),
+ *        @OA\Property(property="department_id", type="integer", example=1, desctiption="Department id of that course")
+ *      )
+ *    )
+ *   ),
+ * @OA\Response(response="200", description="Course that was added")
+ * )
+ */
+Flight::route('POST /admin/courses', function () {
+	$data = Flight::request()->data->getData();
+	Flight::json(Flight::courseService()->add($data));
+});
+
+/**
+ * @OA\Put(path="/admin/courses/remove/{id}",tags={"x-admin","courses"},security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(type="integer", in="path", allowReserved=true, name="id", default=1, description="id of a course"),
+ *     @OA\Response(response="200", description="Remove a course")
+ * )
+ */
+Flight::route("PUT /admin/courses/remove/@id", function ($id) {
+	Flight::json(Flight::courseService()->remove_course($id));
+});

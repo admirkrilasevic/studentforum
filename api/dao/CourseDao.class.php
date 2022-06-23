@@ -26,4 +26,12 @@ class CourseDao extends BaseDao
 		$query .= " ORDER BY ${order_column} ${order_direction}";
 		return $this->query($query, $params);
 	}
+
+	public function remove_course($id)
+	{
+		$entity = [
+			"status" => "REMOVED"
+		];
+		return $this->update($id, $entity);
+	}
 }
