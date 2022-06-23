@@ -27,12 +27,12 @@ function Faculty({ faculty }) {
     }
   };
 
-  const handleRemoveFaculty = (id) => {
+  const handleRemoveFaculty = async (id) => {
     const confirm = window.confirm(
       "Are you sure you want to delete this faculty?"
     );
     if (confirm) {
-      FacultyService.removeFaculty(id);
+      await FacultyService.removeFaculty(id);
       window.location.reload();
     }
   };

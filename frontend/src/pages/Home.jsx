@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "../components/homePage/Sidebar";
 import FacultyService from "../utils/FacultyService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faTrash } from "@fortawesome/free-solid-svg-icons";
 import QuestionService from "../utils/QuestionService";
 import Question from "../components/homePage/Question";
 import { ToastContainer, toast } from "react-toastify";
@@ -120,6 +120,16 @@ function Home() {
     return false;
   };
 
+  const handleRemoveCourse = async (id) => {
+    const confirm = window.confirm(
+      "Are you sure you want to delete this course?"
+    );
+    if (confirm) {
+      await FacultyService.removeCourse(id);
+      window.location.reload();
+    }
+  };
+
   return (
     <Container className={styles.homeContainer}>
       <Row>
@@ -224,6 +234,18 @@ function Home() {
                             <div className={styles.courseLink}>
                               {course.name}
                             </div>
+                            {isAdmin() && (
+                              <div className={styles.removeCourseContainer}>
+                                <FontAwesomeIcon
+                                  className={styles.trashIcon}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleRemoveCourse(course.id);
+                                  }}
+                                  icon={faTrash}
+                                />
+                              </div>
+                            )}
                           </div>
                         );
                       })}

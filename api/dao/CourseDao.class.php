@@ -13,7 +13,7 @@ class CourseDao extends BaseDao
 	{
 		list($order_column, $order_direction) = self::parse_order($order);
 		$params = [];
-		$query = "SELECT * FROM courses WHERE 1=1";
+		$query = "SELECT * FROM courses WHERE status='ACTIVE'";
 
 		if (isset($department_id)) {
 			$query .= " AND department_id = :department_id";
