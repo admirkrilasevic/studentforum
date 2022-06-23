@@ -9,6 +9,7 @@ import styles from "./Sidebar.module.css";
 
 function Faculty({ faculty }) {
   const [departments, setDepartments] = useState([]);
+  const [name, setName] = useState("");
 
   const retrieve = async (id) => {
     const response = await FacultyService.getDepartmentsForFaculty(id);
@@ -41,6 +42,11 @@ function Faculty({ faculty }) {
       FacultyService.removeDepartment(id);
       setDepartments(departments.filter((department) => department.id !== id));
     }
+  };
+
+  const handleAddDepartment = async () => {
+    const response = await FacultyService.addDepartment(name, faculty.id);
+    setDepartments([...departments, response]);
   };
 
   const isAdmin = () => {
@@ -91,6 +97,18 @@ function Faculty({ faculty }) {
               </Link>
             );
           })}
+          {isAdmin() && (
+            <div className={styles.addDepartment}>
+              <input
+                type="text"
+                placeholder="Department name"
+                onChange={(e) => setName(e.target.value)}
+              ></input>
+              <button onClick={() => handleAddDepartment()}>
+                Add Department
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

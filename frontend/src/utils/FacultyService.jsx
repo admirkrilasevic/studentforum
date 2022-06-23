@@ -43,6 +43,15 @@ const removeFaculty = (facultyId) =>
     .then((response) => response.data)
     .catch((error) => error.response);
 
+const addDepartment = (name, facultyId) =>
+  myApi
+    .post("admin/departments", {
+      name,
+      faculty_id: facultyId,
+    })
+    .then((response) => response.data)
+    .catch((error) => error.response);
+
 const removeDepartment = (departmentId) =>
   myApi
     .put(`admin/departments/remove/${departmentId}`, {
@@ -58,5 +67,6 @@ export default {
   getDepartmentCourses,
   addFaculty,
   removeFaculty,
+  addDepartment,
   removeDepartment,
 };
