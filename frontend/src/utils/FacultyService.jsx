@@ -1,26 +1,28 @@
 /* eslint-disable import/no-anonymous-default-export */
-import API from "../api";
+import { Api } from "../api";
+
+const myApi = Api.getInstance();
 
 const getFaculties = () => {
-  return API.get("faculties").then((response) => {
+  return myApi.get("faculties").then((response) => {
     return response.data;
   });
 };
 
 const getDepartmentsForFaculty = (facultyId) => {
-  return API.get(`departments/${facultyId}`).then((response) => {
+  return myApi.get(`departments/${facultyId}`).then((response) => {
     return response.data;
   });
 };
 
 const getDepartmentById = (departmentId) => {
-  return API.get(`/department/${departmentId}`).then((response) => {
+  return myApi.get(`/department/${departmentId}`).then((response) => {
     return response.data;
   });
 };
 
 const getDepartmentCourses = (departmentId) => {
-  return API.get(`/courses/${departmentId}`).then((response) => {
+  return myApi.get(`/courses/${departmentId}`).then((response) => {
     return response.data;
   });
 };
