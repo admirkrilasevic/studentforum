@@ -31,6 +31,16 @@ function Faculty({ faculty }) {
     }
   };
 
+  const handleRemoveDepartment = (id) => {
+    const confirm = window.confirm(
+      "Are you sure you want to delete this department?"
+    );
+    if (confirm) {
+      FacultyService.removeDepartment(id);
+      setDepartments(departments.filter((department) => department.id !== id));
+    }
+  };
+
   return (
     <div>
       <div
@@ -56,6 +66,13 @@ function Faculty({ faculty }) {
                 className={styles.department}
               >
                 {department.name}
+                <FontAwesomeIcon
+                  className={styles.trashIcon}
+                  onClick={() => {
+                    handleRemoveDepartment(department.id);
+                  }}
+                  icon={faTrash}
+                />
               </Link>
             );
           })}

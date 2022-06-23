@@ -38,4 +38,9 @@ class DepartmentService extends BaseService
     {
         return $this->dao->get_deparment_and_faculty($id);
     }
+
+    public function remove_department($id)
+    {
+        return  $this->dao->remove_department($id);
+    }
 }
