@@ -60,6 +60,23 @@ const removeDepartment = (departmentId) =>
     .then((response) => response.data)
     .catch((error) => error.response);
 
+const addCourse = (name, courseId) =>
+  myApi
+    .post("admin/courses", {
+      name,
+      courseId: courseId,
+    })
+    .then((response) => response.data)
+    .catch((error) => error.response);
+
+const removeCourse = (courseId) =>
+  myApi
+    .put(`admin/courses/remove/${courseId}`, {
+      status: "REMOVED",
+    })
+    .then((response) => response.data)
+    .catch((error) => error.response);
+
 export default {
   getFaculties,
   getDepartmentsForFaculty,
@@ -69,4 +86,6 @@ export default {
   removeFaculty,
   addDepartment,
   removeDepartment,
+  addCourse,
+  removeCourse,
 };

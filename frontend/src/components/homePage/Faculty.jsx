@@ -1,15 +1,20 @@
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../../utils/AuthService";
 import FacultyService from "../../utils/FacultyService";
 import parseJWT from "../../utils/parseJwt";
+import Modal from "../Modal/Modal";
 import styles from "./Sidebar.module.css";
+import formStyles from "../../pages/Forms.module.css";
 
 function Faculty({ faculty }) {
   const [departments, setDepartments] = useState([]);
   const [name, setName] = useState("");
+  const [courseName, setCourseName] = useState("");
+  const [facultyModal, setFacultyModal] = useState(false);
+  const [courseModal, setCourseModal] = useState(false);
 
   const retrieve = async (id) => {
     const response = await FacultyService.getDepartmentsForFaculty(id);
@@ -45,8 +50,17 @@ function Faculty({ faculty }) {
   };
 
   const handleAddDepartment = async () => {
+    setFacultyModal(false);
+    setName("");
     const response = await FacultyService.addDepartment(name, faculty.id);
     setDepartments([...departments, response]);
+  };
+
+  const handleAddCourse = async () => {
+    setCourseModal(false);
+    setCourseName("");
+    // const response = await FacultyService.addDepartment(name, faculty.id);
+    // setDepartments([...departments, response]);
   };
 
   const isAdmin = () => {
@@ -66,13 +80,23 @@ function Faculty({ faculty }) {
       >
         {faculty.name}
         {isAdmin() && (
-          <FontAwesomeIcon
-            className={styles.trashIcon}
-            onClick={() => {
-              handleRemoveFaculty(faculty.id);
-            }}
-            icon={faTrash}
-          />
+          <>
+            <FontAwesomeIcon
+              className={styles.trashIcon}
+              onClick={() => {
+                handleRemoveFaculty(faculty.id);
+              }}
+              icon={faTrash}
+            />
+            <FontAwesomeIcon
+              className={styles.addIcon}
+              onClick={(e) => {
+                e.stopPropagation();
+                setFacultyModal(true);
+              }}
+              icon={faCirclePlus}
+            />
+          </>
         )}
       </div>
       {departments && departments.length > 0 && (
@@ -84,31 +108,69 @@ function Faculty({ faculty }) {
                   {department.name}
                 </Link>
                 {isAdmin() && (
-                  <FontAwesomeIcon
-                    className={styles.trashIcon}
-                    onClick={() => {
-                      handleRemoveDepartment(department.id);
-                    }}
-                    icon={faTrash}
-                  />
+                  <>
+                    <FontAwesomeIcon
+                      className={styles.trashIcon}
+                      onClick={() => {
+                        handleRemoveDepartment(department.id);
+                      }}
+                      icon={faTrash}
+                    />
+                    <FontAwesomeIcon
+                      className={styles.addIcon}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCourseModal(true);
+                      }}
+                      icon={faCirclePlus}
+                    />
+                  </>
                 )}
               </span>
             );
           })}
-          {isAdmin() && (
-            <div className={styles.addDepartment}>
-              <input
-                type="text"
-                placeholder="Department name"
-                onChange={(e) => setName(e.target.value)}
-              ></input>
-              <button onClick={() => handleAddDepartment()}>
-                Add Department
-              </button>
-            </div>
-          )}
         </div>
       )}
+      <Modal close={() => setFacultyModal(false)} isOpen={facultyModal}>
+        <div className={formStyles.formTitle}>Add Department</div>
+        <div className={formStyles.departmentFormSection}>
+          <p>Department</p>
+          <input
+            type="text"
+            value={name}
+            placeholder="Enter a department"
+            onChange={(e) => setName(e.target.value)}
+            className={styles.departmentInput}
+          />
+        </div>
+        <button
+          type="submit"
+          className={formStyles.formSubmitButton}
+          onClick={() => handleAddDepartment()}
+        >
+          Add
+        </button>
+      </Modal>
+      <Modal close={() => setCourseModal(false)} isOpen={courseModal}>
+        <div className={formStyles.formTitle}>Add Course</div>
+        <div className={formStyles.departmentFormSection}>
+          <p>Course</p>
+          <input
+            type="text"
+            value={courseName}
+            placeholder="Enter a department"
+            onChange={(e) => setCourseName(e.target.value)}
+            className={styles.departmentInput}
+          />
+        </div>
+        <button
+          type="submit"
+          className={formStyles.formSubmitButton}
+          onClick={() => handleAddCourse()}
+        >
+          Add
+        </button>
+      </Modal>
     </div>
   );
 }
