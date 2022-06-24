@@ -1,7 +1,7 @@
 import { faTrash, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthService from "../../utils/AuthService";
 import FacultyService from "../../utils/FacultyService";
 import parseJWT from "../../utils/parseJwt";
@@ -10,6 +10,8 @@ import styles from "./Sidebar.module.css";
 import formStyles from "../../pages/Forms.module.css";
 
 function Faculty({ faculty }) {
+  const { department } = useParams();
+  const navigate = useNavigate();
   const [departments, setDepartments] = useState([]);
   const [name, setName] = useState("");
   const [facultyModal, setFacultyModal] = useState(false);
@@ -44,6 +46,9 @@ function Faculty({ faculty }) {
     if (confirm) {
       FacultyService.removeDepartment(id);
       setDepartments(departments.filter((department) => department.id !== id));
+      if (department === id) {
+        navigate("/home");
+      }
     }
   };
 
@@ -94,7 +99,7 @@ function Faculty({ faculty }) {
         <div className={styles.departments}>
           {departments.map((department) => {
             return (
-              <span className={styles.department}>
+              <span key={department.id} className={styles.department}>
                 <Link key={department.id} to={`/home/${department.id}`}>
                   {department.name}
                 </Link>

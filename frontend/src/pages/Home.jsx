@@ -255,7 +255,13 @@ function Home() {
                 ) : questionsList && questionsList.length > 0 ? (
                   <>
                     {questionsList.map((question) => {
-                      return <Question question={question} />;
+                      return (
+                        <Question
+                          key={question.id}
+                          refreshQuestions={retrieveQuestions}
+                          question={question}
+                        />
+                      );
                     })}
                   </>
                 ) : (
