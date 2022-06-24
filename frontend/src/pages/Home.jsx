@@ -131,16 +131,15 @@ function Home() {
 
   return (
     <Container className={styles.homeContainer}>
-      <Row>
-        <Col xs={3}>
+      <Row className={styles.homeRow}>
+        <Col xs sm={3} md={3} lg={3} className={styles.homeCol}>
           <Sidebar />
         </Col>
-        <Col xs={8}>
+        <Col sm className={styles.homeCol}>
           {!department ? (
             <div className={styles.welcomeMessage}>
               Welcome to askIBU! <br />
-              Choose a deparment from the side menu to view courses and
-              discussions.
+              Choose a deparment from the menu to view courses and discussions.
             </div>
           ) : (
             <div className={styles.department}>
