@@ -110,3 +110,15 @@
 .linkButton:hover {
   opacity: 0.8;
 }
+
+@media screen and (max-width: 768px) {
+  .formContainer {
+    width: 90%;
+  }
+  .formSection {
+    width: 90%;
+  }
+  .formSubmitButton {
+    width: 90%;
+  }
+}
