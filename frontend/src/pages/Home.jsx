@@ -172,8 +172,8 @@ function Home() {
                 )}
                 {courseId && (
                   <div className={styles.addQuestion}>
-                    <button onClick={() => handleAddClick()}>
-                      Add Question
+                    <button id="add-question" onClick={() => handleAddClick()}>
+                      Add question
                     </button>
                   </div>
                 )}
@@ -186,6 +186,7 @@ function Home() {
                     <div className={styles.formSection}>
                       <span>Subject</span>
                       <input
+                        id="question-subject"
                         type="text"
                         className={styles.formInput}
                         onChange={(e) => setSubject(e.target.value)}
@@ -194,12 +195,14 @@ function Home() {
                     <div className={styles.formSection}>
                       <span>Body</span>
                       <input
+                        id="question-body"
                         type="text"
                         className={styles.formInput}
                         onChange={(e) => setBody(e.target.value)}
                       />
                     </div>
                     <button
+                      id="add-question-submit"
                       className={styles.formSubmitButton}
                       onClick={() => addQuestion()}
                     >
@@ -222,6 +225,7 @@ function Home() {
                       {coursesList.map((course) => {
                         return (
                           <div
+                            id={`course-${course.id}`}
                             key={course.id}
                             className={styles.courseContainer}
                             onClick={() => {

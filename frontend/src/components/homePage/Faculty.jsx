@@ -71,6 +71,7 @@ function Faculty({ faculty }) {
   return (
     <div>
       <div
+        id={`faculty-${faculty.id}`}
         className={styles.faculty}
         onClick={() => toggleDepartments(faculty.id)}
       >
@@ -100,7 +101,10 @@ function Faculty({ faculty }) {
           {departments.map((department) => {
             return (
               <span key={department.id} className={styles.department}>
-                <Link key={department.id} to={`/home/${department.id}`}>
+                <Link
+                  id={`department-${department.id}`}
+                  to={`/home/${department.id}`}
+                >
                   {department.name}
                 </Link>
                 {isAdmin() && (
