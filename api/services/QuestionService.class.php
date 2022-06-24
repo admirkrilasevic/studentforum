@@ -67,9 +67,9 @@ class QuestionService extends BaseService
 		return $this->dao->get_questions($user_id, $offset, $limit, $search, $order, $status, $answer_id, $total);
 	}
 
-	public function get_questions_for_departments($limit, $offset, $order, $department_id, $semester_id, $course_id, $status, $total = FALSE)
+	public function get_questions_for_departments($limit, $offset, $order, $department_id, $course_id, $status, $total = FALSE)
 	{
-		return  $this->dao->get_questions_for_departments($limit, $offset, $order, $department_id, $semester_id, $course_id, $status, $total);
+		return  $this->dao->get_questions_for_departments($limit, $offset, $order, $department_id, $course_id, $status, $total);
 	}
 
 	public function get_questions_for_course($limit, $offset, $order, $course_id, $status, $total = FALSE)
@@ -89,7 +89,6 @@ class QuestionService extends BaseService
 				"body" => $question["body"],
 				"department_id" => $question["department_id"],
 				"course_id" => $question["course_id"],
-				"semester_id" => $question["semester_id"],
 				"user_id" => $user["id"],
 				"posted_at" => date(Config::DATE_FORMAT),
 				"status" => "ACTIVE"

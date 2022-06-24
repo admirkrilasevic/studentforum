@@ -70,7 +70,6 @@ function Home() {
       subject,
       course_id: selectedCourse.id,
       department_id: retrievedDepartment.id,
-      semester_id: selectedCourse.semester_id,
     };
     const response = await QuestionService.postQuestion(question);
     console.log(response);

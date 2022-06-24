@@ -135,8 +135,7 @@ Flight::route("PUT /admin/retrieve/questions/@id", function ($id) {
  *        @OA\Property(property="subject", type="string", example="Some subject", desctiption="Subject of the question"),
  *        @OA\Property(property="body", type="string", example="Some body", desctiption="Body of the question"),
  *        @OA\Property(property="department_id", type="integer", example=1, desctiption="Department that the question is meant for"),
- *        @OA\Property(property="course_id", type="integer", example=1, desctiption="Course that the question is meant for"),
- *        @OA\Property(property="semester_id", type="integer", example=1, desctiption="Semester that the question is meant for")
+ *        @OA\Property(property="course_id", type="integer", example=1, desctiption="Course that the question is meant for")
  *      )
  *    )
  *   ),
@@ -159,7 +158,6 @@ Flight::route("POST /user/questions", function () {
  *        @OA\Property(property="body", type="string", example="Some body", desctiption="Body of the question"),
  *        @OA\Property(property="department_id", type="integer", example=1, desctiption="Department that the question is meant for"),
  *        @OA\Property(property="course_id", type="integer", example=1, desctiption="Course that the question is meant for"),
- *        @OA\Property(property="semester_id", type="integer", example=1, desctiption="Semester that the question is meant for"),
  *        @OA\Property(property="user_id", type="integer", example=1, desctiption="User that is posting the question")
  *      )
  *    )
@@ -181,8 +179,7 @@ Flight::route("POST /admin/questions", function () {
  *        @OA\Property(property="subject", type="string", example="Some subject", desctiption="Subject of the question"),
  *        @OA\Property(property="body", type="string", example="Some body", desctiption="Body of the question"),
  *        @OA\Property(property="department_id", type="integer", example=1, desctiption="Department that the question is meant for"),
- *        @OA\Property(property="course_id", type="integer", example=1, desctiption="Course that the question is meant for"),
- *        @OA\Property(property="semester_id", type="integer", example=1, desctiption="Semester that the question is meant for")
+ *        @OA\Property(property="course_id", type="integer", example=1, desctiption="Course that the question is meant for")
  *      )
  *    )
  *   ),
@@ -204,8 +201,7 @@ Flight::route("PUT /user/questions/@id", function ($id) {
  *        @OA\Property(property="subject", type="string", example="Some subject", desctiption="Subject of the question"),
  *        @OA\Property(property="body", type="string", example="Some body", desctiption="Body of the question"),
  *        @OA\Property(property="department_id", type="integer", example=1, desctiption="Department that the question is meant for"),
- *        @OA\Property(property="course_id", type="integer", example=1, desctiption="Course that the question is meant for"),
- *        @OA\Property(property="semester_id", type="integer", example=1, desctiption="Semester that the question is meant for")
+ *        @OA\Property(property="course_id", type="integer", example=1, desctiption="Course that the question is meant for")
  *      )
  *    )
  *   ),

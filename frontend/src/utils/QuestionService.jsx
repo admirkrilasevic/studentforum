@@ -22,7 +22,6 @@ const postQuestion = (question) =>
       body: question.body,
       department_id: question.department_id,
       course_id: question.course_id,
-      semester_id: question.semester_id,
     })
     .then((response) => response.data)
     .catch((error) => error.response);

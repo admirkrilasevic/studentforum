@@ -10,7 +10,7 @@ class QuestionDao extends BaseDao
 		parent::__construct("questions");
 	}
 
-	public function get_questions_for_departments($limit, $offset, $order = "-id", $department_id, $semester_id, $course_id, $status, $total = FALSE)
+	public function get_questions_for_departments($limit, $offset, $order = "-id", $department_id, $course_id, $status, $total = FALSE)
 	{
 		list($order_column, $order_direction) = self::parse_order($order);
 		$params = [];
@@ -26,10 +26,6 @@ class QuestionDao extends BaseDao
 		if (isset($department_id)) {
 			$query .= " AND questions.department_id = :department_id";
 			$params["department_id"] = $department_id;
-		}
-		if (isset($semester_id)) {
-			$query .= " AND questions.semester_id = :semester_id";
-			$params["semester_id"] = $semester_id;
 		}
 		if ($course_id != NULL) {
 			$query .= " AND questions.course_id = :course_id";
