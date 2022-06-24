@@ -9,13 +9,14 @@ require_once dirname(__FILE__) . '/services/CourseService.class.php';
 require_once dirname(__FILE__) . '/services/AnswerService.class.php';
 require_once dirname(__FILE__) . "/Cors.class.php";
 
+// cors setup
 try {
-	// Allow and set up CORS by calling this function from Cors.class.php file
 	Cors::corsSetup();
 } catch (\Throwable $th) {
 	throw $th;
 }
 
+// error logging
 Flight::set('flight.log_errors', TRUE);
 
 // error handling
@@ -23,7 +24,7 @@ Flight::map('error', function (Exception $ex) {
 	Flight::json(["message" => $ex->getMessage()], $ex->getCode() ? $ex->getCode() : 500);
 });
 
-//reading query params from URL
+// reading query params from URL
 Flight::map('query', function ($name, $default_value = NULL) {
 	$request = Flight::request();
 	$query_param = @$request->query->getData()[$name];
@@ -51,7 +52,7 @@ Flight::route('GET /', function () {
 	Flight::redirect("/docs");
 });
 
-//register BLL services
+// registering BLL services
 Flight::register('userService', 'UserService');
 Flight::register('questionService', 'QuestionService');
 Flight::register('facultyService', 'FacultyService');
@@ -59,7 +60,7 @@ Flight::register('departmentService', 'DepartmentService');
 Flight::register('courseService', 'CourseService');
 Flight::register('answerService', 'AnswerService');
 
-//include all routes
+// including all routes
 require_once dirname(__FILE__) . "/routes/middleware.php";
 require_once dirname(__FILE__) . "/routes/users.php";
 require_once dirname(__FILE__) . "/routes/questions.php";
@@ -67,6 +68,5 @@ require_once dirname(__FILE__) . "/routes/faculties.php";
 require_once dirname(__FILE__) . "/routes/departments.php";
 require_once dirname(__FILE__) . "/routes/courses.php";
 require_once dirname(__FILE__) . "/routes/answers.php";
-
 
 Flight::start();
