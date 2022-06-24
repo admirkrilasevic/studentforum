@@ -89,6 +89,10 @@ function Question({ question }) {
     }
   };
 
+  const handleRemoveQuestion = (id) => {
+    //handle remove question
+  };
+
   const addAnswerSection = () => {
     return (
       <>
@@ -143,6 +147,15 @@ function Question({ question }) {
         <Col className={styles.questionSubject}>
           <strong>{question.subject}</strong>
           <div className={styles.questionBody}>{question.body}</div>
+          {user && user.id === question.user_id && (
+            <FontAwesomeIcon
+              className={styles.trashIcon}
+              onClick={() => {
+                handleRemoveQuestion(question.id);
+              }}
+              icon={faTrash}
+            />
+          )}
         </Col>
         <Col className={styles.questionDetails}>
           Posted at &nbsp;
