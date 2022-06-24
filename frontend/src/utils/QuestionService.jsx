@@ -49,6 +49,14 @@ const updateAnswer = ({ answerId, status }) =>
     .then((response) => response.data)
     .catch((error) => error.response);
 
+const removeQuestion = (questionId) =>
+  myApi
+    .put(`user/questions/${questionId}`, {
+      STATUS: "REMOVED",
+    })
+    .then((response) => response.data)
+    .catch((error) => error.response);
+
 export default {
   getQuestionsForCourse,
   getAnswersForQuestion,
@@ -56,4 +64,5 @@ export default {
   postAnswer,
   pinAnswer,
   updateAnswer,
+  removeQuestion,
 };

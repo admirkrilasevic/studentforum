@@ -2,13 +2,15 @@ import { faMapPin, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import parseJWT from "../../utils/parseJwt";
 import QuestionService from "../../utils/QuestionService";
 import styles from "./Question.module.css";
 
-function Question({ question }) {
+function Question({ question, refreshQuestions }) {
+  const { courseId } = useParams();
   const [expanded, setExpanded] = useState(false);
   const [answers, setAnswers] = useState([]);
   const [user, setUser] = useState();
@@ -89,8 +91,27 @@ function Question({ question }) {
     }
   };
 
-  const handleRemoveQuestion = (id) => {
-    //handle remove question
+  const handleRemoveQuestion = async (id) => {
+    const confirm = window.confirm(
+      "Are you sure you want to delete this question?"
+    );
+    if (confirm) {
+      const response = await QuestionService.removeQuestion(id);
+      if (response.status && response.status === 400) {
+        toast.error(response.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else if (response.id) {
+        setExpanded(false);
+        refreshQuestions(courseId);
+      }
+    }
   };
 
   const addAnswerSection = () => {
@@ -147,15 +168,6 @@ function Question({ question }) {
         <Col className={styles.questionSubject}>
           <strong>{question.subject}</strong>
           <div className={styles.questionBody}>{question.body}</div>
-          {user && user.id === question.user_id && (
-            <FontAwesomeIcon
-              className={styles.trashIcon}
-              onClick={() => {
-                handleRemoveQuestion(question.id);
-              }}
-              icon={faTrash}
-            />
-          )}
         </Col>
         <Col className={styles.questionDetails}>
           Posted at &nbsp;
@@ -165,12 +177,22 @@ function Question({ question }) {
           {question.name}
           <br />
           <br />
-          <span
-            onClick={() => setExpanded(!expanded)}
-            className={styles.viewAnswers}
-          >
-            {expanded ? "Hide Answers" : "View Answers"}
-          </span>
+          <div className={styles.buttonContainer}>
+            {user && user.id === question.user_id && (
+              <span
+                onClick={() => handleRemoveQuestion(question.id)}
+                className={styles.deleteQuestion}
+              >
+                Delete
+              </span>
+            )}
+            <span
+              onClick={() => setExpanded(!expanded)}
+              className={styles.viewAnswers}
+            >
+              {expanded ? "Hide Answers" : "View Answers"}
+            </span>
+          </div>
         </Col>
       </Row>
       {expanded &&
