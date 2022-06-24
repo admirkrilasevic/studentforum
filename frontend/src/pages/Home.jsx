@@ -130,6 +130,7 @@ function Home() {
 
   return (
     <Container className={styles.homeContainer}>
+      <ToastContainer />
       <Row className={styles.homeRow}>
         <Col xs sm={3} md={3} lg={3} className={styles.homeCol}>
           <Sidebar />
@@ -179,7 +180,6 @@ function Home() {
                 )}
               </div>
               <div className={styles.departmentContent}>
-                <ToastContainer />
                 {showQuestionForm && (
                   <div className={styles.formContainer}>
                     <h3 className={styles.formTitle}>Add Question</h3>
