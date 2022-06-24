@@ -222,7 +222,7 @@ function Question({ question, refreshQuestions }) {
                   </div>
                   <div className={styles.additionalContent}>
                     <div className={styles.iconContainer}>
-                      {user.id === answer.user_id && (
+                      {user && user.id === answer.user_id && (
                         <FontAwesomeIcon
                           className={styles.trashIcon}
                           onClick={() => {
