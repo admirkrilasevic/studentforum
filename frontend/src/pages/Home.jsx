@@ -182,7 +182,7 @@ function Home() {
                 <ToastContainer />
                 {showQuestionForm && (
                   <div className={styles.formContainer}>
-                    <h3 className={styles.formTitle}>Add a Question</h3>
+                    <h3 className={styles.formTitle}>Add Question</h3>
                     <div className={styles.formSection}>
                       <span>Subject</span>
                       <input

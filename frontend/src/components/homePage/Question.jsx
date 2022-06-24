@@ -94,7 +94,7 @@ function Question({ question }) {
       <>
         {!showForm && (
           <div className={styles.addAnswer}>
-            <button onClick={() => handleAddClick()}>Add answer</button>
+            <button onClick={() => handleAddClick()}>Add Answer</button>
           </div>
         )}
         {showForm && (
