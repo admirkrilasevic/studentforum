@@ -42,3 +42,17 @@
   display: block;
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 700px) {
+  .modalContent {
+    width: 70%;
+    left: 15%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .modalContent {
+    width: 90%;
+    left: 5%;
+  }
+}
