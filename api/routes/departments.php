@@ -7,7 +7,7 @@
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="limit", default=25, description="Limit for pagination"),
  *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="search", description="Search string for users. Case insensitive search"),
  *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="order", default="-id", description="Sorting for return elements. -column_name ascending order by column_name, +column_name descending order by column_name"),
- *     @OA\Response(response="200", description="List users from database")
+ *     @OA\Response(response="200", description="List departments from database")
  * )
  */
 Flight::route('GET /user/departments', function () {
@@ -26,7 +26,7 @@ Flight::route('GET /user/departments', function () {
 });
 
 /**
- * @OA\Get(path="/user/departments/{id}",tags={"user", "department"},
+ * @OA\Get(path="/department/{id}",tags={"user", "department"},
  *     @OA\Parameter(type="integer", in="path", allowReserved=true, name="id", default=1, description="id of department"),
  *     @OA\Response(response="200", description="Get department by id")
  * )
@@ -52,7 +52,7 @@ Flight::route('GET /departments/@id', function ($id) {
 });
 
 /**
- * @OA\Get(path="/admin/department-faculty/{id}",tags={"admin", "department"},security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/admin/department-faculty/{id}",tags={"x-admin", "department"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(type="integer", in="path", allowReserved=true, name="id", default=1, description="id of department"),
  *     @OA\Response(response="200", description="Get department by id")
  * )

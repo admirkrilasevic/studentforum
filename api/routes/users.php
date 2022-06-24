@@ -81,7 +81,7 @@ Flight::route('POST /register', function () {
 });
 
 /**
- * @OA\Put(path="/admin/users/{id}",tags={"x-admin","user"},security={{"ApiKeyAuth": {}}},
+ * @OA\Put(path="/admin/user/{id}",tags={"x-admin","user"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id", default=1),
  *       @OA\RequestBody(description="Basic user info that is going to be updated", required=true,
  *         @OA\MediaType(

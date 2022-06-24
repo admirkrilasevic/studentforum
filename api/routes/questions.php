@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @OA\Get(path="/user/question",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/user/questions",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="offset", default=0, description="Offset for pagination"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="limit", default=25, description="Limit for pagination"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="answer_id", default=1, description="Search questions by answer"),
  *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="search", description="Search string for questions. Case insensitive search"),
  *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="status", default="ACTIVE", description="Status of the question"),
  *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="order", default="-id", description="Sorting for return elements. -column_name ascending order by column_name, +column_name descending order by column_name"),
- *     @OA\Response(response="200", description="Get your accounts questions")
+ *     @OA\Response(response="200", description="Get your account's questions")
  * )
  */
 Flight::route("GET /user/questions", function () {
@@ -41,7 +41,7 @@ Flight::route("GET /user/questions", function () {
 });
 
 /**
- * @OA\Get(path="/user/question-by-answer/{answer_id}",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/user/questions-by-answer/{answer_id}",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(type="integer", in="path", name="answer_id", default=1, description="id of an answer"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="offset", default=0, description="Offset for pagination"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="limit", default=25, description="Limit for pagination"),
@@ -67,7 +67,7 @@ Flight::route("GET /user/questions-by-answer/@answer_id", function ($answer_id) 
 });
 
 /**
- * @OA\Get(path="/user/question/hot",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/user/questions/hot",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="status", default="ACTIVE", description="Status of the question"),
  *     @OA\Response(response="200", description="Get hottest questions in the past 7 days from your department")
  * )
@@ -79,7 +79,7 @@ Flight::route("GET /user/questions/hot", function () {
 });
 
 /**
- * @OA\Get(path="/user/question-count",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/user/questions-count",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
  *     @OA\Response(response="200", description="Get your question count")
  * )
  */
@@ -89,7 +89,7 @@ Flight::route("GET /user/questions-count", function () {
 });
 
 /**
- * @OA\Get(path="/user/question/{id}",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/user/questions/{id}",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(type="integer", in="path", allowReserved=true, name="id", default=1, description="id of a question"),
  *     @OA\Response(response="200", description="Get your questions by id")
  * )
@@ -102,7 +102,7 @@ Flight::route("GET /user/questions/@id", function ($id) {
 /**
  * @OA\Get(path="/questions/@id",tags={"question"},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="path", name="course_id", description="id of course"),
- *     @OA\Response(response="200", description="Get questions")
+ *     @OA\Response(response="200", description="Get questions for course")
  * )
  */
 Flight::route("GET /questions/@id", function ($id) {
@@ -111,7 +111,7 @@ Flight::route("GET /questions/@id", function ($id) {
 });
 
 /**
- * @OA\Get(path="/admin/question",tags={"x-admin","question"},security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/admin/questions",tags={"x-admin","question"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="user_id", default=92, description="Users id"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="offset", default=0, description="Offset for pagination"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="limit", default=25, description="Limit for pagination"),
@@ -153,7 +153,7 @@ Flight::route("GET /admin/questions", function () {
 });
 
 /**
- * @OA\Put(path="/admin/remove/question/{id}",tags={"x-admin","question"},security={{"ApiKeyAuth": {}}},
+ * @OA\Put(path="/admin/remove/questions/{id}",tags={"x-admin","question"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(type="integer", in="path", allowReserved=true, name="id", default=1, description="id of a question"),
  *     @OA\Response(response="200", description="Remove a question")
  * )
@@ -163,9 +163,9 @@ Flight::route("PUT /admin/remove/questions/@id", function ($id) {
 });
 
 /**
- * @OA\Put(path="/admin/retrieve/question/{id}",tags={"x-admin","question"},security={{"ApiKeyAuth": {}}},
+ * @OA\Put(path="/admin/retrieve/questions/{id}",tags={"x-admin","question"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(type="integer", in="path", allowReserved=true, name="id", default=1, description="id of a question"),
- *     @OA\Response(response="200", description="Retrieve a question")
+ *     @OA\Response(response="200", description="Retrieve a question by id, admin")
  * )
  */
 Flight::route("PUT /admin/retrieve/questions/@id", function ($id) {
@@ -195,7 +195,7 @@ Flight::route("POST /user/questions", function () {
 });
 
 /**
- * @OA\Post(path="/admin/question",tags={"x-admin","question"},security={{"ApiKeyAuth": {}}},
+ * @OA\Post(path="/admin/questions",tags={"x-admin","question"},security={{"ApiKeyAuth": {}}},
  * @OA\RequestBody(description="Question info", required=true,
  *    @OA\MediaType(
  *      mediaType="application/json",
@@ -216,7 +216,7 @@ Flight::route("POST /admin/questions", function () {
 });
 
 /**
- * @OA\Put(path="/user/question/{id}",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
+ * @OA\Put(path="/user/questions/{id}",tags={"x-user","question"},security={{"ApiKeyAuth": {}}},
  * @OA\Parameter(type="integer", in="path", name="id", default=1),
  * @OA\RequestBody(description="Question info", required=true,
  *    @OA\MediaType(
@@ -242,7 +242,7 @@ Flight::route("PUT /user/questions/@id", function ($id) {
 });
 
 /**
- * @OA\Put(path="/admin/question/{id}",tags={"x-admin","question"},security={{"ApiKeyAuth": {}}},
+ * @OA\Put(path="/admin/questions/{id}",tags={"x-admin","question"},security={{"ApiKeyAuth": {}}},
  * @OA\Parameter(type="integer", in="path", name="id", default=1),
  * @OA\RequestBody(description="Question info", required=true,
  *    @OA\MediaType(
@@ -255,7 +255,7 @@ Flight::route("PUT /user/questions/@id", function ($id) {
  *      )
  *    )
  *   ),
- * @OA\Response(response="200", description="Updated question")
+ * @OA\Response(response="200", description="Updated question, admin")
  * )
  */
 Flight::route("PUT /admin/questions/@id", function ($id) {

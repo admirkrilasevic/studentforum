@@ -33,7 +33,7 @@ Flight::route("GET /faculties", function () {
  *      )
  *    )
  *   ),
- * @OA\Response(response="200", description="faculty that was added")
+ * @OA\Response(response="200", description="Faculty that was added")
  * )
  */
 Flight::route('POST /admin/faculties', function () {

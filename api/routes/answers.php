@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @OA\Get(path="/user/answer",tags={"x-user","answer"},security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/user/answers",tags={"x-user","answer"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="offset", default=0, description="Offset for pagination"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="limit", default=25, description="Limit for pagination"),
  *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="status", default="ACTIVE", description="Search by status"),
@@ -105,7 +105,7 @@ Flight::route("GET /user/answers-count", function () {
 });
 
 /**
- * @OA\Get(path="/user/answer/{id}",tags={"x-user","answer"},security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/user/answers/{id}",tags={"x-user","answer"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(type="integer", in="path", allowReserved=true, name="id", default=1, description="id of an answer"),
  *     @OA\Response(response="200", description="Get your answer by id")
  * )
@@ -175,11 +175,11 @@ Flight::route("PUT /user/answers/@id", function ($id) {
  *     @OA\Parameter(type="integer", in="path", allowReserved=true, name="id", default=1, description="id of a answer"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="question", description="id of the question"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="set", description="value of pin"),
- *     @OA\Response(response="200", description="Pinn an answer")
+ *     @OA\Response(response="200", description="Pin an answer")
  * )
  */
 Flight::route(
-    "PUT /user/answers/pin/@id/@quesiton/@set",
+    "PUT /user/answers/pin/@id/@question/@set",
     function ($id, $question, $set) {
         Flight::json(Flight::answerService()
             ->pin_answer(Flight::get("user")["id"], $id, $question, $set));
