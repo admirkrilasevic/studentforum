@@ -119,13 +119,15 @@ function Question({ question, refreshQuestions }) {
       <>
         {!showForm && (
           <div className={styles.addAnswer}>
-            <button onClick={() => handleAddClick()}>Add Answer</button>
+            <button className="addAnswer" onClick={() => handleAddClick()}>
+              Add answer
+            </button>
           </div>
         )}
         {showForm && (
           <div className={styles.addAnswerPrompt}>
             <textarea
-              className={styles.answerInput}
+              className={`${styles.answerInput} answerBody`}
               onChange={(e) => setAnswerBody(e.target.value)}
               placeholder="Add your answer here"
             ></textarea>
@@ -136,7 +138,10 @@ function Question({ question, refreshQuestions }) {
               >
                 Cancel
               </button>
-              <button className={styles.save} onClick={() => addAnswer()}>
+              <button
+                className={`${styles.save} saveAnswer`}
+                onClick={() => addAnswer()}
+              >
                 Save
               </button>
             </div>
@@ -190,7 +195,7 @@ function Question({ question, refreshQuestions }) {
             )}
             <span
               onClick={() => setExpanded(!expanded)}
-              className={styles.viewAnswers}
+              className={`${styles.viewAnswers} viewAnswers`}
             >
               {expanded ? "Hide Answers" : "View Answers"}
             </span>
@@ -231,8 +236,8 @@ function Question({ question, refreshQuestions }) {
                       )}
                       <FontAwesomeIcon
                         className={`${styles.answerPin} ${
-                          answer.is_pinned && styles.pinActive
-                        }`}
+                          answer.is_pinned && `${styles.pinActive} pinnedAnswer`
+                        } pinAnswer`}
                         onClick={() => {
                           handlePinAnswer({
                             answerId: answer.id,
