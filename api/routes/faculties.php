@@ -14,7 +14,12 @@ Flight::route("GET /faculties", function () {
     $limit = Flight::query("limit", 25);
     $search = Flight::query('search');
     $order = urldecode(Flight::query('order', '-id'));
-    Flight::json(Flight::facultyService()->get_faculties($offset, $limit, $search, $order));
+    Flight::json(Flight::facultyService()->get_faculties(
+        $offset,
+        $limit,
+        $search,
+        $order
+    ));
 });
 
 

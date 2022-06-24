@@ -21,7 +21,10 @@ Flight::set('flight.log_errors', TRUE);
 
 // error handling
 Flight::map('error', function (Exception $ex) {
-	Flight::json(["message" => $ex->getMessage()], $ex->getCode() ? $ex->getCode() : 500);
+	Flight::json(
+		["message" => $ex->getMessage()],
+		$ex->getCode() ? $ex->getCode() : 500
+	);
 });
 
 // reading query params from URL
@@ -38,7 +41,11 @@ Flight::map('header', function ($name) {
 });
 
 Flight::map('jwt', function ($user) {
-	$jwt = Firebase\JWT\JWT::encode(["exp" => (time() + Config::JWT_TOKEN_TIME), "id" => $user["id"], "name" => $user['name'], "r" => $user["role"], "d_id" => $user["department_id"]], Config::JWT_SECRET(), 'HS256');
+	$jwt = Firebase\JWT\JWT::encode([
+		"exp" => (time() + Config::JWT_TOKEN_TIME),
+		"id" => $user["id"], "name" => $user['name'],
+		"r" => $user["role"], "d_id" => $user["department_id"]
+	], Config::JWT_SECRET(), 'HS256');
 	return ["token" => $jwt];
 });
 

@@ -16,7 +16,13 @@ Flight::route('GET /user/departments', function () {
     $limit = Flight::query("limit", 10);
     $search = Flight::query("search");
     $order = Flight::query("order", '-id');
-    Flight::json(Flight::departmentService()->get_departments($faculty_id, $offset, $limit, $search, $order));
+    Flight::json(Flight::departmentService()->get_departments(
+        $faculty_id,
+        $offset,
+        $limit,
+        $search,
+        $order
+    ));
 });
 
 /**
@@ -36,7 +42,13 @@ Flight::route('GET /department/@id', function ($id) {
  * )
  */
 Flight::route('GET /departments/@id', function ($id) {
-    Flight::json(Flight::departmentService()->get_departments($id, 0, 100, null, "-id"));
+    Flight::json(Flight::departmentService()->get_departments(
+        $id,
+        0,
+        100,
+        null,
+        "-id"
+    ));
 });
 
 /**

@@ -5,34 +5,34 @@ require_once dirname(__FILE__) . "/BaseDao.class.php";
 class CourseDao extends BaseDao
 {
 
-	public function __construct()
-	{
-		parent::__construct("courses");
-	}
+    public function __construct()
+    {
+        parent::__construct("courses");
+    }
 
-	public function get_courses($search, $order, $department_id)
-	{
-		list($order_column, $order_direction) = self::parse_order($order);
-		$params = [];
-		$query = "SELECT * FROM courses WHERE status='ACTIVE'";
+    public function get_courses($search, $order, $department_id)
+    {
+        list($order_column, $order_direction) = self::parse_order($order);
+        $params = [];
+        $query = "SELECT * FROM courses WHERE status='ACTIVE'";
 
-		if (isset($department_id)) {
-			$query .= " AND department_id = :department_id";
-			$params["department_id"] = $department_id;
-		}
-		if (isset($search)) {
-			$query .= " AND LOWER(name) LIKE CONCAT('%', :search, '%')";
-			$params["search"] = strtolower($search);
-		}
-		$query .= " ORDER BY ${order_column} ${order_direction}";
-		return $this->query($query, $params);
-	}
+        if (isset($department_id)) {
+            $query .= " AND department_id = :department_id";
+            $params["department_id"] = $department_id;
+        }
+        if (isset($search)) {
+            $query .= " AND LOWER(name) LIKE CONCAT('%', :search, '%')";
+            $params["search"] = strtolower($search);
+        }
+        $query .= " ORDER BY ${order_column} ${order_direction}";
+        return $this->query($query, $params);
+    }
 
-	public function remove_course($id)
-	{
-		$entity = [
-			"status" => "REMOVED"
-		];
-		return $this->update($id, $entity);
-	}
+    public function remove_course($id)
+    {
+        $entity = [
+            "status" => "REMOVED"
+        ];
+        return $this->update($id, $entity);
+    }
 }

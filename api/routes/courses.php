@@ -9,9 +9,9 @@
  * )
  */
 Flight::route("GET /courses/@id", function ($id) {
-	$search = Flight::query('search');
-	$order = urldecode(Flight::query('order', '-id'));
-	Flight::json(Flight::courseService()->get_courses($search, $order, $id));
+    $search = Flight::query('search');
+    $order = urldecode(Flight::query('order', '-id'));
+    Flight::json(Flight::courseService()->get_courses($search, $order, $id));
 });
 
 /**
@@ -29,8 +29,8 @@ Flight::route("GET /courses/@id", function ($id) {
  * )
  */
 Flight::route('POST /admin/courses', function () {
-	$data = Flight::request()->data->getData();
-	Flight::json(Flight::courseService()->add($data));
+    $data = Flight::request()->data->getData();
+    Flight::json(Flight::courseService()->add($data));
 });
 
 /**
@@ -40,5 +40,5 @@ Flight::route('POST /admin/courses', function () {
  * )
  */
 Flight::route("PUT /admin/courses/remove/@id", function ($id) {
-	Flight::json(Flight::courseService()->remove_course($id));
+    Flight::json(Flight::courseService()->remove_course($id));
 });

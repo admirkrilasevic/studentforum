@@ -20,7 +20,8 @@ class FacultyDao extends BaseDao
             $query .= " AND LOWER(name) LIKE CONCAT('%', :search, '%')";
             $params["search"] = strtolower($search);
         }
-        $query .= " ORDER BY ${order_column} ${order_direction} LIMIT ${limit} OFFSET ${offset}";
+        $query .= " ORDER BY ${order_column} ${order_direction} 
+            LIMIT ${limit} OFFSET ${offset}";
         return $this->query($query, $params);
     }
 
