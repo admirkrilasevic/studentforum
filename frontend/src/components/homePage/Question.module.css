@@ -16,6 +16,7 @@
   font-style: italic;
   color: #575656;
   font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .questionHeader {
@@ -211,4 +212,100 @@
   margin-right: 10px;
   margin-bottom: 20px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .questionContainer {
+    font-size: 16px;
+  }
+
+  .questionDetails {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .questionHeader {
+    padding: 10px;
+  }
+
+  .questionHeaderExpanded {
+    padding: 10px;
+  }
+
+  .answers {
+    padding: 10px;
+    padding-left: 0px;
+  }
+
+  .answer {
+    padding: 10px;
+    padding-left: 0px;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  .answerPinned {
+    padding: 10px;
+    padding-left: 0px;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  .viewAnswers {
+    font-size: 14px;
+  }
+
+  .noAnswers {
+    font-size: 14px;
+  }
+
+  .answerDetails {
+    font-size: 14px;
+  }
+
+  .addAnswer {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .addAnswer button {
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  .addAnswerPrompt {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .answerInput {
+    width: 100%;
+    padding: 5px;
+  }
+
+  .answerButtons {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .cancel {
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  .save {
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  .answerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .additionalContent {
+    display: flex;
+    flex-direction: column;
+  }
 }
