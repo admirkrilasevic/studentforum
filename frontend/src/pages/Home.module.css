@@ -5,6 +5,7 @@
 .homeContainer {
   margin: 0px;
   padding: 0px;
+  max-width: 100%;
 }
 
 .department {
@@ -235,4 +236,30 @@
 
 .removeCourseContainer {
   z-index: 10;
+}
+
+.homeRow {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+}
+
+.homeCol {
+  padding: 0px;
+  margin: 0px;
+}
+
+@media screen and (max-width: 768px) {
+  .departmentName {
+    font-size: 16px;
+  }
+  .addCourse {
+    font-size: 14px;
+  }
+  .courseName {
+    font-size: 16px;
+  }
+  .addQuestion {
+    font-size: 14px;
+  }
 }

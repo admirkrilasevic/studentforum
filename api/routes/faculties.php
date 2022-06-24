@@ -14,7 +14,12 @@ Flight::route("GET /faculties", function () {
     $limit = Flight::query("limit", 25);
     $search = Flight::query('search');
     $order = urldecode(Flight::query('order', '-id'));
-    Flight::json(Flight::facultyService()->get_faculties($offset, $limit, $search, $order));
+    Flight::json(Flight::facultyService()->get_faculties(
+        $offset,
+        $limit,
+        $search,
+        $order
+    ));
 });
 
 
@@ -28,7 +33,7 @@ Flight::route("GET /faculties", function () {
  *      )
  *    )
  *   ),
- * @OA\Response(response="200", description="faculty that was added")
+ * @OA\Response(response="200", description="Faculty that was added")
  * )
  */
 Flight::route('POST /admin/faculties', function () {

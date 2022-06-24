@@ -19,13 +19,24 @@
  * )
  */
 Flight::route('GET /admin/user', function () {
-	$offset = Flight::query("offset", 0);
-	$limit = Flight::query("limit", 10);
-	$search = Flight::query('search');
-	$order = urldecode(Flight::query('order', '-id'));
-	$total = Flight::userService()->get_users($search, $offset, $limit, $order, TRUE);
-	header('total-records: ' . $total['total']);
-	Flight::json(Flight::userService()->get_users($search, $offset, $limit, $order));
+    $offset = Flight::query("offset", 0);
+    $limit = Flight::query("limit", 10);
+    $search = Flight::query('search');
+    $order = urldecode(Flight::query('order', '-id'));
+    $total = Flight::userService()->get_users(
+        $search,
+        $offset,
+        $limit,
+        $order,
+        TRUE
+    );
+    header('total-records: ' . $total['total']);
+    Flight::json(Flight::userService()->get_users(
+        $search,
+        $offset,
+        $limit,
+        $order
+    ));
 });
 
 /**
@@ -35,7 +46,7 @@ Flight::route('GET /admin/user', function () {
  * )
  */
 Flight::route('GET /admin/user/@id', function ($id) {
-	Flight::json(Flight::userService()->get_by_id($id));
+    Flight::json(Flight::userService()->get_by_id($id));
 });
 
 /**
@@ -44,7 +55,7 @@ Flight::route('GET /admin/user/@id', function ($id) {
  * )
  */
 Flight::route('GET /user/account', function () {
-	Flight::json(Flight::userService()->get_by_id(Flight::get("user")["id"]));
+    Flight::json(Flight::userService()->get_by_id(Flight::get("user")["id"]));
 });
 
 /**
@@ -65,12 +76,12 @@ Flight::route('GET /user/account', function () {
  * )
  */
 Flight::route('POST /register', function () {
-	$data = Flight::request()->data->getData();
-	Flight::json(Flight::userService()->register($data));
+    $data = Flight::request()->data->getData();
+    Flight::json(Flight::userService()->register($data));
 });
 
 /**
- * @OA\Put(path="/admin/users/{id}",tags={"x-admin","user"},security={{"ApiKeyAuth": {}}},
+ * @OA\Put(path="/admin/user/{id}",tags={"x-admin","user"},security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id", default=1),
  *       @OA\RequestBody(description="Basic user info that is going to be updated", required=true,
  *         @OA\MediaType(
@@ -88,8 +99,8 @@ Flight::route('POST /register', function () {
  * )
  */
 Flight::route('PUT /admin/user/@id', function ($id) {
-	$data = Flight::request()->data->getData();
-	Flight::json(Flight::userService()->update($id, $data));
+    $data = Flight::request()->data->getData();
+    Flight::json(Flight::userService()->update($id, $data));
 });
 
 /**
@@ -110,8 +121,8 @@ Flight::route('PUT /admin/user/@id', function ($id) {
  * )
  */
 Flight::route('PUT /user/account', function () {
-	$data = Flight::request()->data->getData();
-	Flight::json(Flight::userService()->update(Flight::get("user")["id"], $data));
+    $data = Flight::request()->data->getData();
+    Flight::json(Flight::userService()->update(Flight::get("user")["id"], $data));
 });
 
 /**
@@ -121,9 +132,9 @@ Flight::route('PUT /user/account', function () {
  * )
  */
 Flight::route('GET /confirm/@token', function ($token) {
-	Flight::jwt(Flight::userService()->confirm($token));
-	header("Location: " . Config::FRONT_URL() .  "login");
-	exit();
+    Flight::jwt(Flight::userService()->confirm($token));
+    header("Location: " . Config::FRONT_URL() .  "login");
+    exit();
 });
 
 /**
@@ -141,7 +152,8 @@ Flight::route('GET /confirm/@token', function ($token) {
  * )
  */
 Flight::route('POST /login', function () {
-	Flight::json(Flight::jwt(Flight::userService()->login(Flight::request()->data->getData())));
+    Flight::json(Flight::jwt(Flight::userService()
+        ->login(Flight::request()->data->getData())));
 });
 
 /**
@@ -158,9 +170,9 @@ Flight::route('POST /login', function () {
  * )
  */
 Flight::route('POST /forgot', function () {
-	$data = Flight::request()->data->getData();
-	Flight::userService()->forgot($data);
-	Flight::json(["message" => "Recovery link has been sent to your email."]);
+    $data = Flight::request()->data->getData();
+    Flight::userService()->forgot($data);
+    Flight::json(["message" => "Recovery link has been sent to your email."]);
 });
 
 /**
@@ -178,7 +190,8 @@ Flight::route('POST /forgot', function () {
  * )
  */
 Flight::route('POST /reset', function () {
-	Flight::json(Flight::jwt(Flight::userService()->reset(Flight::request()->data->getData())));
+    Flight::json(Flight::jwt(Flight::userService()
+        ->reset(Flight::request()->data->getData())));
 });
 
 /**
@@ -196,7 +209,11 @@ Flight::route('POST /reset', function () {
  * )
  */
 Flight::route('PUT /user/change', function () {
-	$oldPassword = Flight::request()->data->oldPassword;
-	$newPassword = Flight::request()->data->newPassword;
-	Flight::json(Flight::jwt(Flight::userService()->changePassword(Flight::get("user")["id"], $oldPassword, $newPassword)));
+    $oldPassword = Flight::request()->data->oldPassword;
+    $newPassword = Flight::request()->data->newPassword;
+    Flight::json(Flight::jwt(Flight::userService()->changePassword(
+        Flight::get("user")["id"],
+        $oldPassword,
+        $newPassword
+    )));
 });

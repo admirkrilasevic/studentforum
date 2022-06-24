@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import styles from "../../pages/Forms.module.css";
 import AuthService from "../../utils/AuthService";
 import "react-toastify/dist/ReactToastify.css";
+import styles from "../../pages/Forms.module.css";
 
 function Settings() {
   const [currentPassword, setCurrentPassword] = useState();

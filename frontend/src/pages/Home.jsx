@@ -9,11 +9,11 @@ import QuestionService from "../utils/QuestionService";
 import Question from "../components/homePage/Question";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styles from "./Home.module.css";
 import formStyles from "./Forms.module.css";
 import AuthService from "../utils/AuthService";
 import parseJWT from "../utils/parseJwt";
 import Modal from "../components/Modal/Modal";
+import styles from "./Home.module.css";
 
 function Home() {
   const { department } = useParams();
@@ -45,24 +45,6 @@ function Home() {
     setQuestionsList(questionsResponse);
   };
 
-  useEffect(() => {
-    if (department) {
-      retrieve(department);
-    }
-  }, [department]);
-
-  useEffect(() => {
-    // eslint-disable-next-line array-callback-return
-    const temp = coursesList.find((course) => {
-      // eslint-disable-next-line eqeqeq
-      if (course.id == courseId) {
-        return course;
-      }
-    });
-    setSelectedCourse(temp);
-    retrieveQuestions(courseId);
-  }, [coursesList, courseId]);
-
   const addQuestion = async () => {
     setShowQuestionForm(false);
     const question = {
@@ -71,8 +53,7 @@ function Home() {
       course_id: selectedCourse.id,
       department_id: retrievedDepartment.id,
     };
-    const response = await QuestionService.postQuestion(question);
-    console.log(response);
+    await QuestionService.postQuestion(question);
     retrieveQuestions(courseId);
   };
 
@@ -129,18 +110,35 @@ function Home() {
     }
   };
 
+  useEffect(() => {
+    if (department) {
+      retrieve(department);
+    }
+  }, [department]);
+
+  useEffect(() => {
+    // eslint-disable-next-line array-callback-return
+    const temp = coursesList.find((course) => {
+      // eslint-disable-next-line eqeqeq
+      if (course.id == courseId) {
+        return course;
+      }
+    });
+    setSelectedCourse(temp);
+    retrieveQuestions(courseId);
+  }, [coursesList, courseId]);
+
   return (
     <Container className={styles.homeContainer}>
-      <Row>
-        <Col xs={3}>
+      <Row className={styles.homeRow}>
+        <Col xs sm={3} md={3} lg={3} className={styles.homeCol}>
           <Sidebar />
         </Col>
-        <Col xs={8}>
+        <Col sm className={styles.homeCol}>
           {!department ? (
             <div className={styles.welcomeMessage}>
               Welcome to askIBU! <br />
-              Choose a deparment from the side menu to view courses and
-              discussions.
+              Choose a deparment from the menu to view courses and discussions.
             </div>
           ) : (
             <div className={styles.department}>
@@ -156,7 +154,7 @@ function Home() {
                   <div className={styles.addCourse}>
                     {isAdmin() && (
                       <button onClick={() => setShowCourseForm(true)}>
-                        Add course
+                        Add Course
                       </button>
                     )}
                   </div>
@@ -175,7 +173,7 @@ function Home() {
                 {courseId && (
                   <div className={styles.addQuestion}>
                     <button onClick={() => handleAddClick()}>
-                      Add question
+                      Add Question
                     </button>
                   </div>
                 )}
@@ -184,7 +182,7 @@ function Home() {
                 <ToastContainer />
                 {showQuestionForm && (
                   <div className={styles.formContainer}>
-                    <h3 className={styles.formTitle}>Add a Question</h3>
+                    <h3 className={styles.formTitle}>Add Question</h3>
                     <div className={styles.formSection}>
                       <span>Subject</span>
                       <input

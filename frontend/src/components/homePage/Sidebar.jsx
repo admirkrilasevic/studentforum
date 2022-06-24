@@ -1,9 +1,9 @@
 import FacultyService from "../../utils/FacultyService";
 import { useEffect, useState } from "react";
 import Faculty from "./Faculty";
-import styles from "./Sidebar.module.css";
 import parseJWT from "../../utils/parseJwt";
 import AuthService from "../../utils/AuthService";
+import styles from "./Sidebar.module.css";
 
 function Sidebar() {
   const [faculties, setFaculties] = useState([]);
