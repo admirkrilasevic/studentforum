@@ -24,24 +24,13 @@ function Question({ question }) {
     setAnswers(answersResponse);
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("user")) {
-      const userData = parseJWT(localStorage.getItem("user"));
-      setUser(userData);
-    }
-    if (expanded) {
-      retrieveAnswers(question.id);
-    }
-  }, [expanded]);
-
   const addAnswer = async () => {
     setShowForm(false);
     const data = {
       answerBody,
       question_id: question.id,
     };
-    const response = await QuestionService.postAnswer(data);
-    console.log(response);
+    await QuestionService.postAnswer(data);
     retrieveAnswers(question.id);
   };
 
@@ -131,6 +120,17 @@ function Question({ question }) {
       </>
     );
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      const userData = parseJWT(localStorage.getItem("user"));
+      setUser(userData);
+    }
+    if (expanded) {
+      retrieveAnswers(question.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [expanded]);
 
   return (
     <Container key={question.id} className={styles.questionContainer}>

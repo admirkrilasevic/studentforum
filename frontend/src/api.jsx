@@ -13,7 +13,6 @@ export class Api {
 
   static getInstance() {
     if (!Api.instance) {
-      console.log("Creating new instance of Api");
       Api.instance = axios.create({
         baseURL: API_URL,
       });

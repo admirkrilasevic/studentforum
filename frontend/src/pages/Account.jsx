@@ -34,7 +34,7 @@ function Account() {
         <Link
           to={"/account/profile"}
           className={
-            selectedSection == "Profile"
+            selectedSection === "Profile"
               ? styles.sectionButtonActive
               : styles.sectionButton
           }
@@ -44,7 +44,7 @@ function Account() {
         <Link
           to={"/account/settings"}
           className={
-            selectedSection == "Settings"
+            selectedSection === "Settings"
               ? styles.sectionButtonActive
               : styles.sectionButton
           }

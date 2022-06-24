@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import AuthService from "../../utils/AuthService";
 import FacultyService from "../../utils/FacultyService";
-import styles from "../../pages/Forms.module.css";
 import SelectInput from "../SelectInput/SelectInput";
 import parseJWT from "../../utils/parseJwt";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import styles from "../../pages/Forms.module.css";
 
 function Profile() {
   const [name, setName] = useState();
@@ -47,7 +47,6 @@ function Profile() {
       faculty.id,
       department.id
     );
-    console.log(response);
     if (response.status && response.status !== "ACTIVE") {
       toast(response.data.message, {
         type: "error",

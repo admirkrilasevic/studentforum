@@ -9,11 +9,11 @@ import QuestionService from "../utils/QuestionService";
 import Question from "../components/homePage/Question";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styles from "./Home.module.css";
 import formStyles from "./Forms.module.css";
 import AuthService from "../utils/AuthService";
 import parseJWT from "../utils/parseJwt";
 import Modal from "../components/Modal/Modal";
+import styles from "./Home.module.css";
 
 function Home() {
   const { department } = useParams();
@@ -45,24 +45,6 @@ function Home() {
     setQuestionsList(questionsResponse);
   };
 
-  useEffect(() => {
-    if (department) {
-      retrieve(department);
-    }
-  }, [department]);
-
-  useEffect(() => {
-    // eslint-disable-next-line array-callback-return
-    const temp = coursesList.find((course) => {
-      // eslint-disable-next-line eqeqeq
-      if (course.id == courseId) {
-        return course;
-      }
-    });
-    setSelectedCourse(temp);
-    retrieveQuestions(courseId);
-  }, [coursesList, courseId]);
-
   const addQuestion = async () => {
     setShowQuestionForm(false);
     const question = {
@@ -71,8 +53,7 @@ function Home() {
       course_id: selectedCourse.id,
       department_id: retrievedDepartment.id,
     };
-    const response = await QuestionService.postQuestion(question);
-    console.log(response);
+    await QuestionService.postQuestion(question);
     retrieveQuestions(courseId);
   };
 
@@ -129,6 +110,24 @@ function Home() {
     }
   };
 
+  useEffect(() => {
+    if (department) {
+      retrieve(department);
+    }
+  }, [department]);
+
+  useEffect(() => {
+    // eslint-disable-next-line array-callback-return
+    const temp = coursesList.find((course) => {
+      // eslint-disable-next-line eqeqeq
+      if (course.id == courseId) {
+        return course;
+      }
+    });
+    setSelectedCourse(temp);
+    retrieveQuestions(courseId);
+  }, [coursesList, courseId]);
+
   return (
     <Container className={styles.homeContainer}>
       <Row className={styles.homeRow}>
@@ -155,7 +154,7 @@ function Home() {
                   <div className={styles.addCourse}>
                     {isAdmin() && (
                       <button onClick={() => setShowCourseForm(true)}>
-                        Add course
+                        Add Course
                       </button>
                     )}
                   </div>
@@ -174,7 +173,7 @@ function Home() {
                 {courseId && (
                   <div className={styles.addQuestion}>
                     <button onClick={() => handleAddClick()}>
-                      Add question
+                      Add Question
                     </button>
                   </div>
                 )}
